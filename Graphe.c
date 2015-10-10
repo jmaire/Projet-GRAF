@@ -6,7 +6,7 @@
 graphe* creation(int max_sommet, int est_oriente)
 {
 	graphe* g = (graphe*)malloc(sizeof(graphe));
-	
+
 	g->nbSommets = 0;
 	g->nbMaxSommets = max_sommet;
 	g->estOriente = est_oriente;
@@ -27,12 +27,7 @@ void lecture(graphe* g)
 		printf("non");
 	}
 	printf("\n# sommets : voisins\n");
-	int i;
-	for(i=0 ; i<nbMaxSommets ; i++)
-	{
-		if(
-	}
-	
+
 }
 
 void insertionSommet(graphe* g)
@@ -53,7 +48,7 @@ void insertionSommet(graphe* g)
 void* realloueMemoire(void* ptr, int taille)
 {
 	void* temp = realloc(ptr, taille);
-	
+
 	if(NULL != temp)
 	{
 		return temp;
