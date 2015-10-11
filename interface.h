@@ -5,13 +5,17 @@
 
 void menuDeSelection(void);
 
-void afficherMenu(void);
+void afficherMenu(int isGraphInit);
 
-void executerAction(int num_action);
+graphe* executerAction(int num_action, graphe* g);
 
-/*graphe* creation(int nb_sommet);
+graphe* executerActionCreation(int num_action);
 
-void lecture(const char* file_name);
+graphe* lectureFichier(void);
+
+graphe* actionCreation(void);
+
+/*void lecture(const char* file_name);
 
 void insertionSommet(void);
 

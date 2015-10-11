@@ -1,16 +1,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "Graphe.h"
+#include "interface.h"
 
 int main()
 {
-	//liste* l = creationListe();
-	//ajouteListe(l, 5, 1);
-	//afficheListePos(l);
-
-	graphe* g = creation(11, 1);
-	//lecture(g);
-	insertionSommet(g);
+	menuDeSelection();
 	return 0;
 }
