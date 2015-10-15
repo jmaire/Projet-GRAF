@@ -122,9 +122,19 @@ graphe* lectureFichier(void)
 
     int maxNumSommet;
     char isOrient;
-    fscanf(f, "# nombre maximum de sommets\n%d\n# oriente\n%c\n# sommets : voisins", &maxNumSommet, &isOrient);
 
-    printf("\n\n%d %c\n\n", maxNumSommet, isOrient);
+    fscanf(f, "# nombre maximum de sommets\n%d\n# oriente\n%c\n# sommets : voisins\n", &maxNumSommet, &isOrient);
+
+    if(maxNumSommet <= 0 || ((isOrient != 'n') && (isOrient != 'o')))
+    {
+        fprintf(stderr, "le format du fichier est incorrect.\n");
+        return NULL;
+    }
+
+    char buffer[50];
+    fgets(buffer, 50, f);
+    printf("\n%s\n",buffer);
+
     // TODO : faire le parsing du fichier
 
     return NULL;
