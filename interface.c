@@ -111,6 +111,22 @@ graphe* executerActionCreation(int num_action)
 
 graphe* lectureFichier(void)
 {
+    char file_path[50];
+
+    printf("Entrez le chemin du fichier à charger.\n");
+    scanf("%s", file_path);
+	scanf("%*[^\n]s");
+	getchar();
+
+    FILE* f = fopen(file_path, "r");
+
+    int maxNumSommet;
+    char isOrient;
+    fscanf(f, "# nombre maximum de sommets\n%d\n# oriente\n%c\n# sommets : voisins", &maxNumSommet, &isOrient);
+
+    printf("\n\n%d %c\n\n", maxNumSommet, isOrient);
+    // TODO : faire le parsing du fichier
+
     return NULL;
 }
 
