@@ -3,26 +3,23 @@
 
 #include "MaListe.h"
 
-typedef liste TypVoisins;
+typedef liste* TypVoisins;
 
 typedef struct s_graphe
 {
 	int estOriente, nbMaxSommets, nbSommets;
-	TypVoisins* listesAdjacences;
+	TypVoisins listesAdjacences;
 } graphe;
 
 graphe* creation(int max_sommet, int est_oriente);
 
-void lecture(graphe* g);
-
 void insertionSommet(graphe* g);
 
+void insertionArete(graphe* g, int s1, int s2, int poids);
 
+void sauvegardeGraphe(graphe* g, char* path);
 
-
-
-
-
+void affichageGraphe(graphe* g);
 
 void* realloueMemoire(void* ptr, int taille);
 

@@ -2,6 +2,9 @@
 #include <stdio.h>
 
 #include "MaListe.h"
+#include <string.h>
+
+#define MY_SIZE 1024
 
 liste* creationListe(void)
 {
@@ -75,31 +78,30 @@ void supprimeListe(liste* l, int s)
 	supprimeListe(&((*l)->suiv), s);
 }
 
-void afficheListe(liste* l)
+void afficheListe(liste* l, int opt)
 {
-	if((*l)!=NULL)
-	{
-		printf("(%d/%d) ",(*l)->sommet, (*l)->poids);
-		afficheListe(&((*l)->suiv));
-	}
-	else
-	{
-		printf("\n");
-	}
+	printf("%s\n",listeToString(l, opt));
 }
 
-void afficheListePos(liste* l)
+char* listeToString(liste* l, int opt)
 {
+	char* rep = malloc(MY_SIZE*sizeof(char));
+	strcpy(rep,"");
+
+	char tmp[256];
+
 	if((*l)!=NULL)
 	{
-		if((*l)->sommet>0)
+		if((*l)->sommet>0 || opt)
 		{
-			printf("(%d/%d) ",(*l)->sommet, (*l)->poids);
+			sprintf(tmp,"(%d/%d) ",(*l)->sommet, (*l)->poids);
+			strcat(rep,tmp);
 		}
-		afficheListe(&((*l)->suiv));
+		strcat(rep,listeToString(&((*l)->suiv),opt));
 	}
 	else
 	{
-		printf("\n");
+		strcat(rep,"\n");
 	}
+	return rep;
 }
