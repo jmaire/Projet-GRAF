@@ -17,8 +17,6 @@ graphe* actionCreation(void);
 
 /*void lecture(const char* file_name);
 
-void insertionSommet(void);
-
 void insertionArete(int sommet_depart, int sommet_arrive);
 
 void suppressionSommet(int num_sommet);
@@ -27,8 +25,6 @@ void suppressionArete(int sommet_depart, int sommet_arrive);
 
 void affichage(void);
 
-void sauvegarde(const char* file_name);
-
-void quitter(void);*/
+void sauvegarde(const char* file_name);*/
 
 #endif // INTERFACE_FUNCTION
