@@ -30,12 +30,7 @@ void menuDeSelection(void)
 		scanf("%*[^\n]s");
 		getchar();
 
-		graphe* graphres = executerAction(selection, grapheCourant);
-		if(NULL != graphres)
-        {
-            grapheCourant = graphres;
-        }
-
+		grapheCourant = executerAction(selection, grapheCourant);
 	}
 }
 
@@ -53,40 +48,34 @@ void afficherMenu(int isGraphInit)
 
 graphe* executerAction(int num_action, graphe* g)
 {
+	if((num_action == 1) || (num_action == 2))
+	{
+		return executerActionCreation(num_action);
+	}
+
     switch (num_action)
     {
-    case 1: // creation d'un graphe
-        return actionCreation();
-        break;
-    case 2: // creation d'un graphe depuis un fichier
-        return lectureFichier();
-        break;
     case 3: // insertion d'un sommet
-        return NULL;
+		insertionSommet(g);
         break;
-    case 4: // quitter
-        return NULL;
+    case 4: // TODO insertion d'une arête
         break;
-    case 5: // quitter
-        return NULL;
+    case 5: // TODO suppression d'un sommet
         break;
-    case 6: // quitter
-        return NULL;
+    case 6: // TODO suppression d'une arête
         break;
-    case 7: // quitter
-        return NULL;
+    case 7: // TODO afficher le graghe
         break;
-    case 8: // quitter
-        return NULL;
+    case 8: // TODO sauvegarder le graphe
         break;
     case 9: // quitter
-        return NULL;
         break;
     default:
         fprintf(stderr, "Action inconnue\n");
         return NULL;
         break;
     }
+	return g;
 }
 
 graphe* executerActionCreation(int num_action)
@@ -103,7 +92,7 @@ graphe* executerActionCreation(int num_action)
         return NULL;
         break;
     default:
-        fprintf(stderr, "Action inconnue\n");
+        fprintf(stderr, "Action inconnue.\n");
         return NULL;
         break;
     }
@@ -120,6 +109,12 @@ graphe* lectureFichier(void)
 
     FILE* f = fopen(file_path, "r");
 
+	if(NULL == f)
+	{
+		fprintf(stderr, "Le fichier choisi n'existe pas.\n");
+		return NULL;
+	}
+
     int maxNumSommet;
     char isOrient;
 
@@ -127,7 +122,7 @@ graphe* lectureFichier(void)
 
     if(maxNumSommet <= 0 || ((isOrient != 'n') && (isOrient != 'o')))
     {
-        fprintf(stderr, "le format du fichier est incorrect.\n");
+        fprintf(stderr, "Le format du fichier est incorrect.\n");
         return NULL;
     }
 
@@ -142,14 +137,36 @@ graphe* lectureFichier(void)
 
 graphe* actionCreation(void)
 {
-    return creation(15, 0);
+	int nb_sommet, res = 0;
+	
+	while(!res)
+	{
+		printf("Entrez le nombre de sommets du graphe.\n");
+
+		res = scanf("%d", &nb_sommet);
+		scanf("%*[^\n]s");
+		getchar();
+	}
+
+	char isOrient;
+
+	res = 0;
+	while(!res)
+	{
+		printf("Le graphe est il orienté ? (o/n)\n");
+
+    	res = scanf("%c", &isOrient);
+		scanf("%*[^\n]s");
+		getchar();
+
+		if((isOrient != 'o') && (isOrient != 'n'))
+			res = 0;
+	}
+
+    return creation(nb_sommet, isOrient == 'o');
 }
 
 /*void lecture(const char* file_name)
-{
-}
-
-void insertionSommet(void)
 {
 }
 
@@ -171,9 +188,4 @@ void affichage(void)
 
 void sauvegarde(const char* file_name)
 {
-}
-
-void quitter(void)
-{
-	exit(0);
 }*/
