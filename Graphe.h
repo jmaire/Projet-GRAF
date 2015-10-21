@@ -17,6 +17,14 @@ void insertionSommet(graphe* g);
 
 void insertionArete(graphe* g, int s1, int s2, int poids);
 
+void supprimerSommet(graphe* g, int s);
+
+void remonterSommet(graphe* g, int s);
+
+void supprimerArete(graphe* g, int s1, int s2);
+
+void supprimerGraphe(graphe* g);
+
 void sauvegardeGraphe(graphe* g, char* path);
 
 void affichageGraphe(graphe* g);

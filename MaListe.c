@@ -13,6 +13,11 @@ liste* creationListe(void)
 	return l;
 }
 
+void initListe(liste* l)
+{
+	ajouteListe(l,-1,0);
+}
+
 void ajouteListe(liste* l, int s, int p)
 {
 	// Empty list
@@ -80,7 +85,39 @@ void supprimeListe(liste* l, int s)
 
 void afficheListe(liste* l, int opt)
 {
-	printf("%s\n",listeToString(l, opt));
+	if(l!=NULL)
+	{
+		printf("%s\n",listeToString(l, opt));
+	}
+}
+
+void remonterListe(liste* l, int s)
+{
+	// Empty list
+	if(NULL == (*l))
+	{
+		return;
+	}
+
+	// Element already in list
+	if((*l)->sommet > s)
+	{
+		(*l)->sommet--;
+	}
+
+	remonterListe(&((*l)->suiv), s);
+}
+
+liste* detruireListe(liste* l)
+{
+	if((*l)==NULL)
+	{
+		return NULL;
+	}
+
+	elementListe* temp = (*l)->suiv;
+	free(*l);
+	detruireListe(&temp);
 }
 
 char* listeToString(liste* l, int opt)
