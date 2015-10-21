@@ -13,6 +13,7 @@ void menuDeSelection(void)
 		scanf("%d", &selection);
 		scanf("%*[^\n]s");
 		getchar();
+		printf("\n");
 
 		grapheCourant = executerActionCreation(selection);
 
@@ -29,6 +30,7 @@ void menuDeSelection(void)
 		scanf("%d", &selection);
 		scanf("%*[^\n]s");
 		getchar();
+		printf("\n");
 
 		grapheCourant = executerAction(selection, grapheCourant);
 	}
@@ -38,11 +40,11 @@ void afficherMenu(int isGraphInit)
 {
     if(isGraphInit)
     {
-        printf("\t1. Creation d'un graphe\n\t2. Lecture d'un graphe depuis un fichier\n\t3. Insertion d'un sommet\n\t4. Insertion d'une arête\n\t5. Suppression d'un sommet\n\t6. Suppression d'une arête\n\t7. Afficher le graghe\n\t8. Sauvegarder le graphe\n\t9. Quitter\n");
+        printf("\n\t1. Creation d'un graphe\n\t2. Lecture d'un graphe depuis un fichier\n\t3. Insertion d'un sommet\n\t4. Insertion d'une arête\n\t5. Suppression d'un sommet\n\t6. Suppression d'une arête\n\t7. Afficher le graghe\n\t8. Sauvegarder le graphe\n\t9. Quitter\n");
     }
     else
     {
-        printf("\t1. Creation d'un graphe\n\t2. Lecture d'un graphe depuis un fichier\n\t3. Quitter\n");
+        printf("\n\t1. Creation d'un graphe\n\t2. Lecture d'un graphe depuis un fichier\n\t3. Quitter\n");
     }
 }
 
@@ -50,7 +52,16 @@ graphe* executerAction(int num_action, graphe* g)
 {
 	if((num_action == 1) || (num_action == 2))
 	{
-		return executerActionCreation(num_action);
+		graphe* res = executerActionCreation(num_action);
+		
+		if(NULL == res)
+		{
+			return g;
+		}
+		else
+		{
+			return res;
+		}
 	}
 
     switch (num_action)
@@ -58,15 +69,18 @@ graphe* executerAction(int num_action, graphe* g)
     case 3: // insertion d'un sommet
 		insertionSommet(g);
         break;
-    case 4: // TODO insertion d'une arête
+    case 4: // insertion d'une arête
+    	actionInsertionArete(g);
         break;
     case 5: // TODO suppression d'un sommet
         break;
     case 6: // TODO suppression d'une arête
         break;
-    case 7: // TODO afficher le graghe
+    case 7: // afficher le graghe
+    	affichageGraphe(g);
         break;
-    case 8: // TODO sauvegarder le graphe
+    case 8: // sauvegarder le graphe
+    	actionSauvegarde(g);
         break;
     case 9: // quitter
         break;
@@ -115,12 +129,12 @@ graphe* lectureFichier(void)
 		return NULL;
 	}
 
-    int maxNumSommet;
-    char isOrient;
+    int maxNumSommet, res;
+    char isOrient, verifIsS;
 
-    fscanf(f, "# nombre maximum de sommets\n%d\n# oriente\n%c\n# sommets : voisins\n", &maxNumSommet, &isOrient);
+    res = fscanf(f, "# nombre maximum de sommets\n%d\n# oriente\n%c\n# sommets : voisin%c\n", &maxNumSommet, &isOrient, &verifIsS);
 
-    if(maxNumSommet <= 0 || ((isOrient != 'n') && (isOrient != 'o')))
+    if((maxNumSommet <= 0) || ((isOrient != 'n') && (isOrient != 'o')) || (res < 3) || (verifIsS != 's'))
     {
         fprintf(stderr, "Le format du fichier est incorrect.\n");
         return NULL;
@@ -166,26 +180,52 @@ graphe* actionCreation(void)
     return creation(nb_sommet, isOrient == 'o');
 }
 
-/*void lecture(const char* file_name)
+void actionSauvegarde(graphe* g)
 {
+    char file_path[50];
+
+    printf("Entrez le nom du fichier où enregistrer le graphe.\n");
+    scanf("%s", file_path);
+	scanf("%*[^\n]s");
+	getchar();
+
+    sauvegardeGraphe(g, file_path);
 }
 
-void insertionArete(int sommet_depart, int sommet_arrive)
+void actionInsertionArete(graphe* g)
 {
-}
+	int s1, s2, poids, res = 0;
+	
+	while(!res)
+	{
+		printf("Entrez le numero du premier sommet.\n");
 
-void suppressionSommet(int num_sommet)
-{
-}
+		res = scanf("%d", &s1);
+		scanf("%*[^\n]s");
+		getchar();
+	}
+	
+	res = 0;
+	
+	while(!res)
+	{
+		printf("Entrez le numero du deuxième sommet.\n");
 
-void suppressionArete(int sommet_depart, int sommet_arrive)
-{
-}
+		res = scanf("%d", &s2);
+		scanf("%*[^\n]s");
+		getchar();
+	}
+	
+	res = 0;
+	
+	while(!res)
+	{
+		printf("Entrez le poids de l'arête.\n");
 
-void affichage(void)
-{
+		res = scanf("%d", &poids);
+		scanf("%*[^\n]s");
+		getchar();
+	}
+	
+	insertionArete(g, s1, s2, poids);
 }
-
-void sauvegarde(const char* file_name)
-{
-}*/
