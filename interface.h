@@ -15,16 +15,8 @@ graphe* lectureFichier(void);
 
 graphe* actionCreation(void);
 
-/*void lecture(const char* file_name);
+void actionSauvegarde(graphe* g);
 
-void insertionArete(int sommet_depart, int sommet_arrive);
-
-void suppressionSommet(int num_sommet);
-
-void suppressionArete(int sommet_depart, int sommet_arrive);
-
-void affichage(void);
-
-void sauvegarde(const char* file_name);*/
+void actionInsertionArete(graphe* g);
 
 #endif // INTERFACE_FUNCTION
