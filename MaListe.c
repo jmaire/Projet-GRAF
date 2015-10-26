@@ -87,7 +87,9 @@ void afficheListe(liste* l, int opt)
 {
 	if(l!=NULL)
 	{
-		printf("%s\n",listeToString(l, opt));
+		char* s = listeToString(l, opt);
+		printf("%s\n",s);
+		free(s);
 	}
 }
 
@@ -108,16 +110,17 @@ void remonterListe(liste* l, int s)
 	remonterListe(&((*l)->suiv), s);
 }
 
-liste* detruireListe(liste* l)
+void viderListe(liste* l)
 {
 	if((*l)==NULL)
 	{
-		return NULL;
+		l = NULL;
+		return;
 	}
 
-	elementListe* temp = (*l)->suiv;
+	liste* temp = &((*l)->suiv);
 	free(*l);
-	detruireListe(&temp);
+	viderListe(temp);
 }
 
 char* listeToString(liste* l, int opt)
@@ -134,11 +137,14 @@ char* listeToString(liste* l, int opt)
 			sprintf(tmp,"(%d/%d) ",(*l)->sommet, (*l)->poids);
 			strcat(rep,tmp);
 		}
-		strcat(rep,listeToString(&((*l)->suiv),opt));
+		char * s = listeToString(&((*l)->suiv),opt);
+		strcat(rep,s);
+		free(s);
 	}
 	else
 	{
 		strcat(rep,"\n");
 	}
+
 	return rep;
 }

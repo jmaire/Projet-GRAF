@@ -19,7 +19,7 @@ void afficheListe(liste* l, int opt);
 
 void remonterListe(liste* l, int s);
 
-liste* detruireListe(liste* l);
+void viderListe(liste* l);
 
 char* listeToString(liste* l, int opt);
 

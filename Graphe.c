@@ -4,6 +4,8 @@
 #include "Graphe.h"
 #include <string.h>
 
+#define AFFICHER_SOMMET_FICTIF 0
+
 graphe* creation(int max_sommet, int est_oriente)
 {
 	graphe* g = (graphe*)malloc(sizeof(graphe));
@@ -19,13 +21,12 @@ void insertionSommet(graphe* g)
 {
 	if(g->nbSommets == g->nbMaxSommets)
 	{
-		printf("Impossible\n");
+		fprintf(stderr,"Impossible\n");
 		return;
 	}
 	g->nbSommets++;
 	g->listesAdjacences = realloueMemoire(g->listesAdjacences,g->nbSommets*sizeof(TypVoisins));
 
-	//liste* tmp = creationListe();
 	initListe(&(g->listesAdjacences[g->nbSommets-1]));
 }
 
@@ -33,7 +34,7 @@ void insertionArete(graphe* g, int s1, int s2, int poids)
 {
 	if(s1>=g->nbSommets || s1<0 || s2>=g->nbSommets || s2<0 || poids<0)
 	{
-		printf("Impossible\n");
+		fprintf(stderr,"Impossible\n");
 		return;
 	}
 	
@@ -44,21 +45,17 @@ void supprimerSommet(graphe* g, int s)
 {
 	if(s>=g->nbSommets || s<0)
 	{
-		printf("Impossible\n");
+		fprintf(stderr,"Impossible\n");
 		return;
 	}
 
 	int i;
 	for(i=0 ; i<g->nbSommets ; i++)
 	{
-		if(i==s)
-		{
-			continue;
-		}
 		supprimerArete(g,i,s);
-		supprimerArete(g,s,i);
 	}
 	
+	viderListe(&(g->listesAdjacences[s]));
 	remonterSommet(g,s);
 }
 
@@ -73,27 +70,23 @@ void remonterSommet(graphe* g, int s)
 		}
 		remonterListe(&(g->listesAdjacences[i]),s);
 	}
-
-	int taille = g->nbSommets-1;
-	liste* tmp = &(g->listesAdjacences[s]);
-	for(i=s ; i<taille ; i++)
+	
+	g->nbSommets--;
+	for(i=s ; i<g->nbSommets ; i++)
 	{
 		g->listesAdjacences[i]=g->listesAdjacences[i+1];
 	}
 
-	//detruireListe(tmp);
-	//free(tmp);
+	//free(&(g->listesAdjacences[g->nbSommets]));
 
-	g->nbSommets--;
 	g->listesAdjacences = realloueMemoire(g->listesAdjacences,g->nbSommets*sizeof(TypVoisins));
-
 }
 
 void supprimerArete(graphe* g, int s1, int s2)
 {
 	if(s1>=g->nbSommets || s1<0 || s2>=g->nbSommets || s2<0)
 	{
-		printf("Impossible\n");
+		fprintf(stderr,"Impossible\n");
 		return;
 	}
 	supprimeListe(&(g->listesAdjacences[s1]),s2);
@@ -107,10 +100,9 @@ void affichageGraphe(graphe* g)
 void supprimerGraphe(graphe* g)
 {
 	int i;
-	for(i=0 ; i<g->nbSommets ; i++)
+	for(i=g->nbSommets-1 ; i>=0 ; i--)
 	{
 		supprimerSommet(g,i);
-		i--;
 	}
 
 	free(g);
@@ -143,7 +135,9 @@ void sauvegardeGraphe(graphe* g, char* path)
 	for(i=0 ; i<g->nbSommets ; i++)
 	{
 		fprintf(f,"%d : ",i);
-		fprintf(f,"%s",listeToString(&(g->listesAdjacences[i]),0));
+		char * s = listeToString(&(g->listesAdjacences[i]),AFFICHER_SOMMET_FICTIF);
+		fprintf(f,"%s",s);
+		free(s);
 	}
 	if(f!=stdout)
 	{
@@ -155,12 +149,11 @@ void* realloueMemoire(void* ptr, int taille)
 {
 	void* temp = realloc(ptr, taille);
 
-	if(NULL != temp)
+	if(NULL==temp && taille<0)
 	{
-		return temp;
+		fprintf(stderr,"Erreur, plus de mémoire\n");
+		return NULL;
 	}
 
-	fprintf(stderr,"Erreur, plus de mémoire\n");
-	return NULL;
-	//exit(1);
+	return temp;
 }
