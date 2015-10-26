@@ -15,6 +15,7 @@ liste* creationListe(void)
 
 void initListe(liste* l)
 {
+	(*l) = NULL;
 	ajouteListe(l,-1,0);
 }
 
