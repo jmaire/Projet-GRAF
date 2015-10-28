@@ -53,7 +53,7 @@ graphe* executerAction(int num_action, graphe* g)
 	if((num_action == 1) || (num_action == 2))
 	{
 		graphe* res = executerActionCreation(num_action);
-		
+
 		if(NULL == res)
 		{
 			return g;
@@ -72,9 +72,11 @@ graphe* executerAction(int num_action, graphe* g)
     case 4: // insertion d'une arête
     	actionInsertionArete(g);
         break;
-    case 5: // TODO suppression d'un sommet
+    case 5: // suppression d'un sommet
+    	actionSuppressionSommet(g);
         break;
-    case 6: // TODO suppression d'une arête
+    case 6: // suppression d'une arête
+        actionSuppressionArete(g);
         break;
     case 7: // afficher le graghe
     	affichageGraphe(g);
@@ -140,9 +142,14 @@ graphe* lectureFichier(void)
         return NULL;
     }
 
-    char buffer[50];
-    fgets(buffer, 50, f);
-    printf("\n%s\n",buffer);
+    char y;
+    char* sommet = "X : ";
+    char* arete = "(X/X)";
+
+    while(EOF != (y = fgetc(f)))
+    {
+        printf("%c", y);
+    }
 
     // TODO : faire le parsing du fichier
 
@@ -152,7 +159,7 @@ graphe* lectureFichier(void)
 graphe* actionCreation(void)
 {
 	int nb_sommet, res = 0;
-	
+
 	while(!res)
 	{
 		printf("Entrez le nombre de sommets du graphe.\n");
@@ -195,7 +202,7 @@ void actionSauvegarde(graphe* g)
 void actionInsertionArete(graphe* g)
 {
 	int s1, s2, poids, res = 0;
-	
+
 	while(!res)
 	{
 		printf("Entrez le numero du premier sommet.\n");
@@ -204,9 +211,9 @@ void actionInsertionArete(graphe* g)
 		scanf("%*[^\n]s");
 		getchar();
 	}
-	
+
 	res = 0;
-	
+
 	while(!res)
 	{
 		printf("Entrez le numero du deuxième sommet.\n");
@@ -215,9 +222,9 @@ void actionInsertionArete(graphe* g)
 		scanf("%*[^\n]s");
 		getchar();
 	}
-	
+
 	res = 0;
-	
+
 	while(!res)
 	{
 		printf("Entrez le poids de l'arête.\n");
@@ -226,6 +233,49 @@ void actionInsertionArete(graphe* g)
 		scanf("%*[^\n]s");
 		getchar();
 	}
-	
+
 	insertionArete(g, s1, s2, poids);
+}
+
+void actionSuppressionSommet(graphe* g)
+{
+	int num_sommet, res = 0;
+
+	while(!res)
+	{
+		printf("Entrez le numero du sommet à supprimer.\n");
+
+		res = scanf("%d", &num_sommet);
+		scanf("%*[^\n]s");
+		getchar();
+	}
+
+	supprimerSommet(g, num_sommet);
+}
+
+void actionSuppressionArete(graphe* g)
+{
+	int s1, s2, res = 0;
+
+	while(!res)
+	{
+		printf("Entrez le numero du sommet de départ.\n");
+
+		res = scanf("%d", &s1);
+		scanf("%*[^\n]s");
+		getchar();
+	}
+
+	res = 0;
+
+    while(!res)
+	{
+		printf("Entrez le numero du sommet d'arrivé.\n");
+
+		res = scanf("%d", &s2);
+		scanf("%*[^\n]s");
+		getchar();
+	}
+
+	supprimerArete(g, s1, s2);
 }

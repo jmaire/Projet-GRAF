@@ -19,4 +19,8 @@ void actionSauvegarde(graphe* g);
 
 void actionInsertionArete(graphe* g);
 
+void actionSuppressionSommet(graphe* g);
+
+void actionSuppressionArete(graphe* g);
+
 #endif // INTERFACE_FUNCTION
