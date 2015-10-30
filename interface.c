@@ -116,6 +116,7 @@ graphe* executerActionCreation(int num_action)
 
 graphe* lectureFichier(void)
 {
+    graphe* resultat_parcing;
     char file_path[50];
 
     printf("Entrez le chemin du fichier à charger.\n");
@@ -132,28 +133,95 @@ graphe* lectureFichier(void)
 	}
 
     int maxNumSommet, res;
-    char isOrient, verifIsS;
+    char isOrient, verif;
 
-    res = fscanf(f, "# nombre maximum de sommets\n%d\n# oriente\n%c\n# sommets : voisin%c\n", &maxNumSommet, &isOrient, &verifIsS);
+    res = fscanf(f, "# nombre maximum de sommets\n%d\n# oriente\n%c\n# sommets : voisin%c\n", &maxNumSommet, &isOrient, &verif);
 
-    if((maxNumSommet <= 0) || ((isOrient != 'n') && (isOrient != 'o')) || (res < 3) || (verifIsS != 's'))
+    if((maxNumSommet <= 0) || ((isOrient != 'n') && (isOrient != 'o')) || (res < 3) || (verif != 's'))
     {
         fprintf(stderr, "Le format du fichier est incorrect.\n");
         return NULL;
     }
 
-    char y;
-    char* sommet = "X : ";
-    char* arete = "(X/X)";
+    resultat_parcing = creation(maxNumSommet, isOrient == 'o');
 
-    while(EOF != (y = fgetc(f)))
+    int sommet_actuel = 0, sommet_depart, sommet_arrive, poids;
+    char curseur;
+    int i, j, liste_adjacences[maxNumSommet][maxNumSommet];
+
+    for(i=0;i<maxNumSommet;i++)
     {
-        printf("%c", y);
+        for(j=0;j<maxNumSommet;j++)
+        {
+            liste_adjacences[i][j] = -1;
+        }
     }
 
-    // TODO : faire le parsing du fichier
+    while(1)
+    {
+        res = fscanf(f, "%d :%c", &sommet_depart, &verif);  // lecture de l'entête du sommet
 
-    return NULL;
+        if((res < 2) || ((verif != ' ')&&(verif != '\n')))  // si le formatage n'est pas correct
+        {
+            if(EOF == fgetc(f))
+            {
+                break;
+            }
+
+            fprintf(stderr, "Le format du fichier est incorrect.\n");
+            return NULL;
+        }
+
+        if(sommet_depart != sommet_actuel)  // verification si le sommet indiqué par le fichier correspond au successeur des précédents
+        {
+            fprintf(stderr, "Le sommet %d est manquant.\n", sommet_actuel);
+            return NULL;
+        }
+
+        sommet_actuel++;
+        insertionSommet(resultat_parcing);
+
+        curseur = fgetc(f);
+        fseek(f, -1, SEEK_CUR);
+
+        if((verif == '\n') || (curseur == '\n'))
+        {
+            continue;
+        }
+        if(curseur != '(')
+        {
+            fprintf(stderr, "Le format du fichier est incorrect.\n");
+            return NULL;
+        }
+
+        while(1)
+        {
+            res = fscanf(f, "(%d/%d)%c", &sommet_arrive, &poids, &verif);
+
+            if((res < 3)||((verif != ' ')&&(verif != ',')&&(verif != '\n')))
+            {
+                fprintf(stderr, "Le format du fichier est incorrect.\n");
+                return NULL;
+            }
+
+            liste_adjacences[sommet_depart][sommet_arrive] = poids;
+
+            if((verif == ' ')||(verif == '\n'))
+            {
+                break;
+            }
+            else // verif == ','
+            {
+                if(' ' != fgetc(f)) // si la virgule n'est pas suivie d'un espace
+                {
+                    fprintf(stderr, "Le format du fichier est incorrect.\n");
+                    return NULL;
+                }
+            }
+        }
+    }
+
+    return resultat_parcing;
 }
 
 graphe* actionCreation(void)
