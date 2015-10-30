@@ -6,14 +6,21 @@ void menuDeSelection(void)
 {
 	int selection;
 	graphe* grapheCourant = NULL;
+	int res;
 
 	do  // lors du lancement aucun graphe n'est initialisé, seule les actions de creation et quitter sont disponibles
     {
 		afficherMenu(0);
-		scanf("%d", &selection);
+		res = scanf("%d", &selection);
 		scanf("%*[^\n]s");
 		getchar();
 		printf("\n");
+
+		if(res < 1)
+        {
+            fprintf(stderr, "Action inconnue\n");
+            continue;
+        }
 
 		grapheCourant = executerActionCreation(selection);
 
@@ -27,10 +34,16 @@ void menuDeSelection(void)
 	while (selection != 9)
 	{
 		afficherMenu(1);
-		scanf("%d", &selection);
+		res = scanf("%d", &selection);
 		scanf("%*[^\n]s");
 		getchar();
 		printf("\n");
+
+		if(res < 1)
+        {
+            fprintf(stderr, "Action inconnue\n");
+            continue;
+        }
 
 		grapheCourant = executerAction(selection, grapheCourant);
 	}
