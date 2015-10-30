@@ -38,7 +38,7 @@ void insertionArete(graphe* g, int s1, int s2, int poids)
 		fprintf(stderr,"Impossible d'ajouter cette arête : (%d) --%d-> (%d)\n",s1,s2,poids);
 		return;
 	}
-	
+
 	ajouteListe(&(g->listesAdjacences[s1]),s2,poids);
 }
 
@@ -55,7 +55,7 @@ void supprimerSommet(graphe* g, int s)
 	{
 		supprimerArete(g,i,s);
 	}
-	
+
 	viderListe(&(g->listesAdjacences[s]));
 	remonterSommet(g,s);
 }
@@ -71,7 +71,7 @@ void remonterSommet(graphe* g, int s)
 		}
 		remonterListe(&(g->listesAdjacences[i]),s);
 	}
-	
+
 	g->nbSommets--;
 	for(i=s ; i<g->nbSommets ; i++)
 	{
