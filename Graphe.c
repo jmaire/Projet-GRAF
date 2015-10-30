@@ -22,7 +22,7 @@ void insertionSommet(graphe* g)
 {
 	if(g->nbSommets == g->nbMaxSommets)
 	{
-		fprintf(stderr,"Impossible d'ajouter ce sommet\n");
+		fprintf(stderr,"Impossible d'ajouter un sommet supplémentaire\n");
 		return;
 	}
 	g->nbSommets++;
@@ -46,7 +46,7 @@ void supprimerSommet(graphe* g, int s)
 {
 	if(s>=g->nbSommets || s<0)
 	{
-		fprintf(stderr,"Impossible de supprimer ce sommet\n");
+		fprintf(stderr,"Impossible de supprimer le sommet %d\n",s);
 		return;
 	}
 
@@ -87,7 +87,7 @@ void supprimerArete(graphe* g, int s1, int s2)
 {
 	if(s1>=g->nbSommets || s1<0 || s2>=g->nbSommets || s2<0)
 	{
-		fprintf(stderr,"Impossible de supprimer cette arête\n");
+		fprintf(stderr,"Impossible de supprimer cette arête : (%d) ---> (%d)\n",s1,s2);
 		return;
 	}
 	supprimeListe(&(g->listesAdjacences[s1]),s2);
