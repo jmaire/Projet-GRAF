@@ -25,6 +25,8 @@ void supprimerArete(graphe* g, int s1, int s2);
 
 void supprimerGraphe(graphe* g);
 
+graphe* lectureGraphe(char* path);
+
 void sauvegardeGraphe(graphe* g, char* path);
 
 void affichageGraphe(graphe* g);

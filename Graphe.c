@@ -109,6 +109,121 @@ void supprimerGraphe(graphe* g)
 	free(g);
 }
 
+graphe* lectureGraphe(char* path)
+{
+    graphe* resultat_parcing;
+
+    FILE* f = fopen(path, "r");
+
+	if(NULL == f)
+	{
+		fprintf(stderr, "Le fichier choisi n'existe pas.\n");
+		return NULL;
+	}
+
+    int maxNumSommet, res;
+    char isOrient, verif;
+
+    res = fscanf(f, "# nombre maximum de sommets\n%d\n# oriente\n%c\n# sommets : voisin%c\n", &maxNumSommet, &isOrient, &verif);
+
+    if((maxNumSommet <= 0) || ((isOrient != 'n') && (isOrient != 'o')) || (res < 3) || (verif != 's'))
+    {
+        fprintf(stderr, "Le format du fichier est incorrect.\n");
+        return NULL;
+    }
+
+    resultat_parcing = creation(maxNumSommet, isOrient == 'o');
+
+    int sommet_actuel = 0, sommet_depart, sommet_arrive, poids;
+    char curseur;
+    int i, j, liste_adjacences[maxNumSommet][maxNumSommet];
+
+    for(i=0;i<maxNumSommet;i++)
+    {
+        for(j=0;j<maxNumSommet;j++)
+        {
+            liste_adjacences[i][j] = -1;
+        }
+    }
+
+    while(1)
+    {
+        res = fscanf(f, "%d :%c", &sommet_depart, &verif);  // lecture de l'entête du sommet
+
+        if((res < 2) || ((verif != ' ')&&(verif != '\n')))  // si le formatage n'est pas correct
+        {
+            if(EOF == fgetc(f))
+            {
+                break;
+            }
+
+            fprintf(stderr, "Le format du fichier est incorrect.\n");
+            return NULL;
+        }
+
+        if(sommet_depart != sommet_actuel)  // verification si le sommet indiqué par le fichier correspond au successeur des précédents
+        {
+            fprintf(stderr, "Le sommet %d est manquant.\n", sommet_actuel);
+            return NULL;
+        }
+
+        sommet_actuel++;
+        insertionSommet(resultat_parcing);
+
+        curseur = fgetc(f);
+        fseek(f, -1, SEEK_CUR);
+
+        if((verif == '\n') || (curseur == '\n'))
+        {
+            continue;
+        }
+        if(curseur != '(')
+        {
+            fprintf(stderr, "Le format du fichier est incorrect.\n");
+            return NULL;
+        }
+
+        while(1)
+        {
+            res = fscanf(f, "(%d/%d)%c", &sommet_arrive, &poids, &verif);
+
+            if((res < 3)||((verif != ' ')&&(verif != ',')&&(verif != '\n')))
+            {
+                fprintf(stderr, "Le format du fichier est incorrect.\n");
+                return NULL;
+            }
+
+            liste_adjacences[sommet_depart][sommet_arrive] = poids;
+
+            if((verif == ' ')||(verif == '\n'))
+            {
+                break;
+            }
+            else // verif == ','
+            {
+                if(' ' != fgetc(f)) // si la virgule n'est pas suivie d'un espace
+                {
+                    fprintf(stderr, "Le format du fichier est incorrect.\n");
+                    return NULL;
+                }
+            }
+        }
+    }
+
+    for(i=0;i<sommet_actuel;i++)
+    {
+        for(j=0;j<sommet_actuel;j++)
+        {
+            if(liste_adjacences[i][j] != -1)
+            {
+                insertionArete(resultat_parcing, i, j, liste_adjacences[i][j]);
+            }
+        }
+    }
+
+    return resultat_parcing;
+}
+
 void sauvegardeGraphe(graphe* g, char* path)
 {
 	FILE* f;
