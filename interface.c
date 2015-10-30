@@ -219,7 +219,28 @@ void actionInsertionArete(graphe* g)
 		getchar();
 	}
 
-	insertionArete(g, s1, s2, poids,0);
+	char oriente;
+
+	if(g->estOriente)
+    {
+        res = 0;
+
+        while(!res)
+        {
+            printf("L'arête est elle orientée ? (o/n)\n");
+
+            res = scanf("%c", &oriente);
+            scanf("%*[^\n]s");
+            getchar();
+
+            if((oriente != 'o')&&(oriente != 'n'))
+            {
+                continue;
+            }
+        }
+    }
+
+	insertionArete(g, s1, s2, poids, oriente == 'o');
 }
 
 void actionSuppressionSommet(graphe* g)
