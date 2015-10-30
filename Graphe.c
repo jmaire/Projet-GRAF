@@ -22,7 +22,8 @@ void insertionSommet(graphe* g)
 {
 	if(g->nbSommets == g->nbMaxSommets)
 	{
-		fprintf(stderr,"Impossible d'ajouter un sommet supplémentaire\n");
+		fprintf(stderr,"Impossible d'ajouter un sommet supplémentaire :\n");
+		fprintf(stderr,"\t-Limite de sommet atteinte\n");
 		return;
 	}
 	g->nbSommets++;
@@ -31,15 +32,31 @@ void insertionSommet(graphe* g)
 	initListe(&(g->listesAdjacences[g->nbSommets-1]));
 }
 
-void insertionArete(graphe* g, int s1, int s2, int poids)
+void insertionArete(graphe* g, int s1, int s2, int poids, int oriente)
 {
-	if(s1==s2 || s1>=g->nbSommets || s1<0 || s2>=g->nbSommets || s2<0 || poids<0)
+	if(s1==s2 || s1>=g->nbSommets || s1<0 || s2>=g->nbSommets || s2<0 || poids<=0)
 	{
-		fprintf(stderr,"Impossible d'ajouter cette arête : (%d) --%d-> (%d)\n",s1,s2,poids);
+		fprintf(stderr,"Impossible d'ajouter l'arête (%d) --%d-> (%d) :\n",s1,s2,poids);
+		if(s1==s2)
+		{
+			fprintf(stderr,"\t-Un arête doit se faire entre deux sommets différents\n");
+		}
+		if(s1<0 || s2<0 || s1>=g->nbSommets || s2>=g->nbSommets)
+		{
+			fprintf(stderr,"\t-Les sommets choisis n'existent pas\n");
+		}
+		if(poids<0)
+		{
+			fprintf(stderr,"\t-Le poids doit être positif\n");
+		}
 		return;
 	}
 
 	ajouteListe(&(g->listesAdjacences[s1]),s2,poids);
+
+	if(g->estOriente==1 && oriente==1) {
+		ajouteListe(&(g->listesAdjacences[s2]),s1,poids);
+	}
 }
 
 void supprimerSommet(graphe* g, int s)
@@ -47,6 +64,7 @@ void supprimerSommet(graphe* g, int s)
 	if(s>=g->nbSommets || s<0)
 	{
 		fprintf(stderr,"Impossible de supprimer le sommet %d\n",s);
+		fprintf(stderr,"\t-Le sommet choisi n'existe pas\n");
 		return;
 	}
 
@@ -87,7 +105,8 @@ void supprimerArete(graphe* g, int s1, int s2)
 {
 	if(s1>=g->nbSommets || s1<0 || s2>=g->nbSommets || s2<0)
 	{
-		fprintf(stderr,"Impossible de supprimer cette arête : (%d) ---> (%d)\n",s1,s2);
+		fprintf(stderr,"Impossible de supprimer l'arête (%d) ---> (%d)\n",s1,s2);
+		fprintf(stderr,"\t-Les sommets choisis n'existent pas\n");
 		return;
 	}
 	supprimeListe(&(g->listesAdjacences[s1]),s2);
@@ -216,7 +235,7 @@ graphe* lectureGraphe(char* path)
         {
             if(liste_adjacences[i][j] != -1)
             {
-                insertionArete(resultat_parcing, i, j, liste_adjacences[i][j]);
+                insertionArete(resultat_parcing, i, j, liste_adjacences[i][j],0);//TODO
             }
         }
     }

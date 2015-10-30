@@ -15,7 +15,7 @@ graphe* creation(int max_sommet, int est_oriente);
 
 void insertionSommet(graphe* g);
 
-void insertionArete(graphe* g, int s1, int s2, int poids);
+void insertionArete(graphe* g, int s1, int s2, int poids, int oriente);
 
 void supprimerSommet(graphe* g, int s);
 
