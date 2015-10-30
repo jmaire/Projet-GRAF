@@ -221,6 +221,17 @@ graphe* lectureFichier(void)
         }
     }
 
+    for(i=0;i<sommet_actuel;i++)
+    {
+        for(j=0;j<sommet_actuel;j++)
+        {
+            if(liste_adjacences[i][j] != -1)
+            {
+                insertionArete(resultat_parcing, i, j, liste_adjacences[i][j]);
+            }
+        }
+    }
+
     return resultat_parcing;
 }
 
