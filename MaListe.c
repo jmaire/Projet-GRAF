@@ -133,7 +133,7 @@ char* listeToString(liste* l, int opt)
 
 	if((*l)!=NULL)
 	{
-		if((*l)->sommet>0 || opt)
+		if((*l)->sommet>=0 || opt)
 		{
 			sprintf(tmp,"(%d/%d) ",(*l)->sommet, (*l)->poids);
 			strcat(rep,tmp);
