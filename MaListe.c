@@ -6,13 +6,6 @@
 
 #define MY_SIZE 1024
 
-liste* creationListe(void)
-{
-	liste* l = (liste*)malloc(sizeof(liste));
-	ajouteListe(l,-1,0);
-	return l;
-}
-
 void initListe(liste* l)
 {
 	(*l) = NULL;
