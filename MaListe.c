@@ -54,7 +54,24 @@ void ajouteListe(liste* l, int s, int p)
 		return;
 	}
 
-	ajouteListe(&((*l)->suiv), s, p);
+	return ajouteListe(&((*l)->suiv), s, p);
+}
+
+int appartientListe(liste* l, int s)
+{
+	// Empty list
+	if(NULL == (*l) || (*l)->sommet > s)
+	{
+		return 0;
+	}
+
+	// Element already in list
+	if((*l)->sommet == s)
+	{
+		return 1;
+	}
+
+	return appartientListe(&((*l)->suiv), s);
 }
 
 void supprimeListe(liste* l, int s)

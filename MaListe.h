@@ -13,6 +13,8 @@ void initListe(liste* l);
 
 void ajouteListe(liste* l, int s, int p);
 
+int appartientListe(liste* l, int s);
+
 void supprimeListe(liste* l, int s);
 
 void afficheListe(liste* l, int opt);
