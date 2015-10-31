@@ -219,7 +219,7 @@ void actionInsertionArete(graphe* g)
 		getchar();
 	}
 
-	insertionArete(g, s1, s2, poids,0);
+	insertionArete(g, s1, s2, poids,0);//TODO
 }
 
 void actionSuppressionSommet(graphe* g)
