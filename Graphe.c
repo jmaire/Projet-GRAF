@@ -83,8 +83,8 @@ void insertionArete(graphe* g, int s1, int s2, int poids, int oriente)
 		return;
 	}
 
-	// Ajout de l'arête de s2 à s1 dans le cas d'une arête non orientée dans un graphe orienté
-	if(oriente && g->estOriente)
+	// Ajout de l'arête de s2 à s1 dans le cas d'une arête non orientée dans un graphe orienté ou d'un graphe non orienté
+	if(!g->estOriente || (oriente && g->estOriente))
 	{
 		ajouteListe(&(g->listesAdjacences[s2]),s1,poids);
 	}
