@@ -30,6 +30,8 @@ void ajouteListe(liste* l, int s, int p);
  *
  * @param 	liste*		l							Référence de la liste
  * @param 	int				s							Sommet de l'élément
+ *
+ * Renvoie 1 si l'élément est trouvé, 0 sinon
  */
 int appartientListe(liste* l, int s);
 
@@ -64,7 +66,7 @@ void remonterListe(liste* l, int s);
  */
 void viderListe(liste* l);
 
-/* 
+/*
  * Fonction qui transforme une liste en une chaîne de caratère utilisé pour l'affichage
  *
  * @param 	liste*		l							Référence de la liste que l'on veut vider

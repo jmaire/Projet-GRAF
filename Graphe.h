@@ -102,7 +102,7 @@ int areteAppartientGraphe(graphe* g, int s1, int s2, int oriente);
  *
  * @param		char*			path			Chemin du fichier
  *
- * Retourne le graphe lu grâce au fichier
+ * Retourne le graphe lu grâce au fichier ou NULL en cas d'échec de lecture
  */
 graphe* lectureGraphe(char* path);
 
