@@ -267,7 +267,7 @@ graphe* lectureGraphe(char* path)
         {
             res = fscanf(f, "(%d/%d)%c", &sommet_arrive, &poids, &verif);
 
-            if((res < 3)||((verif != ' ')&&(verif != ',')&&(verif != '\n')))
+            if((res < 2)||((verif != ' ')&&(verif != ',')&&(verif != '\n')))
             {
                 fprintf(stderr, "Le format du fichier est incorrect.\n");
                 return NULL;
@@ -279,7 +279,7 @@ graphe* lectureGraphe(char* path)
                 liste_adjacences[sommet_arrive][sommet_depart] = -1;
             }
 
-            if((verif == ' ')||(verif == '\n'))
+            if((verif == ' ')||(verif == '\n')||(res == 2))
             {
                 break;
             }
