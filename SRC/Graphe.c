@@ -241,6 +241,8 @@ graphe* lectureGraphe(char* path)
             return NULL;
         }
 
+        sommet_depart--;
+
         if(sommet_depart != sommet_actuel)  // verification si le sommet indiqué par le fichier correspond au successeur des précédents
         {
             fprintf(stderr, "Le sommet %d est manquant.\n", sommet_actuel);
@@ -272,6 +274,8 @@ graphe* lectureGraphe(char* path)
                 fprintf(stderr, "Le format du fichier est incorrect.\n");
                 return NULL;
             }
+
+            sommet_arrive--;
 
             liste_adjacences[sommet_depart][sommet_arrive] = poids;
             if('n' == isOrient)

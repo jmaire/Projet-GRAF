@@ -240,7 +240,7 @@ void actionInsertionArete(graphe* g)
         }
     }
 
-	insertionArete(g, s1, s2, poids, oriente == 'o');
+	insertionArete(g, s1-1, s2-1, poids, oriente == 'o');
 }
 
 void actionSuppressionSommet(graphe* g)
@@ -256,7 +256,7 @@ void actionSuppressionSommet(graphe* g)
 		getchar();
 	}
 
-	supprimerSommet(g, num_sommet);
+	supprimerSommet(g, num_sommet-1);
 }
 
 void actionSuppressionArete(graphe* g)
@@ -283,5 +283,5 @@ void actionSuppressionArete(graphe* g)
 		getchar();
 	}
 
-	supprimerArete(g, s1, s2);
+	supprimerArete(g, s1-1, s2-1);
 }
