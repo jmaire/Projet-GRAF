@@ -76,7 +76,7 @@ void insertionArete(graphe* g, int s1, int s2, int poids, int oriente)
 			case 2:
 				fprintf(stderr,"Une arête entre le sommet %d et %d est déjà présente\n",s2,s1);
 				break;
-		
+
 			default:
 				break;
 		}
@@ -180,7 +180,7 @@ int areteAppartientGraphe(graphe* g, int s1, int s2, int oriente)
 		if(res)
 		{
 			// Retourne 2 s'il existe une arête de s2 à s1 dans le cas :
-			//	- d'une arête non orientée d'un graphe orienté 
+			//	- d'une arête non orientée d'un graphe orienté
 			//	- d'un graphe non orienté
 			return 2;
 		}
@@ -274,6 +274,10 @@ graphe* lectureGraphe(char* path)
             }
 
             liste_adjacences[sommet_depart][sommet_arrive] = poids;
+            if('n' == isOrient)
+            {
+                liste_adjacences[sommet_arrive][sommet_depart] = -1;
+            }
 
             if((verif == ' ')||(verif == '\n'))
             {
@@ -296,7 +300,7 @@ graphe* lectureGraphe(char* path)
         {
             if(liste_adjacences[i][j] != -1)
             {
-                insertionArete(resultat_parcing, i, j, liste_adjacences[i][j],0);//TODO
+                insertionArete(resultat_parcing, i, j, liste_adjacences[i][j], 1);
             }
         }
     }
