@@ -71,7 +71,8 @@ void viderListe(liste* l);
  *
  * @param 	liste*		l							Référence de la liste que l'on veut vider
  * @param 	int				opt						1 si l'on veut afficher les éléments qui ont un sommet négatif, 0 sinon
+ * @param 	int				virgule				1 si l'on veut afficher une virgule, 0 sinon
  */
-char* listeToString(liste* l, int opt);
+char* listeToString(liste* l, int opt, int virgule);
 
 #endif

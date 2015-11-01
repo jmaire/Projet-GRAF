@@ -98,7 +98,7 @@ void afficheListe(liste* l, int opt)
 {
 	if(l!=NULL)
 	{
-		char* s = listeToString(l, opt);
+		char* s = listeToString(l, opt, 0);
 		printf("%s\n",s);
 		free(s);
 	}
@@ -134,7 +134,7 @@ void viderListe(liste* l)
 	viderListe(temp);
 }
 
-char* listeToString(liste* l, int opt)
+char* listeToString(liste* l, int opt, int virgule)
 {
 	char* rep = malloc(MY_SIZE*sizeof(char));
 	strcpy(rep,"");
@@ -145,10 +145,17 @@ char* listeToString(liste* l, int opt)
 	{
 		if((*l)->sommet>=0 || opt)
 		{
-			sprintf(tmp,"(%d/%d) ",(*l)->sommet, (*l)->poids);
+			if(virgule)
+			{
+				sprintf(tmp,", ");
+				strcat(rep,tmp);
+			}
+			sprintf(tmp,"(%d/%d)",(*l)->sommet, (*l)->poids);
 			strcat(rep,tmp);
+
+			virgule=1;
 		}
-		char * s = listeToString(&((*l)->suiv),opt);
+		char * s = listeToString(&((*l)->suiv),opt,virgule);
 		strcat(rep,s);
 		free(s);
 	}

@@ -55,11 +55,11 @@ void afficherMenu(int isGraphInit)
 {
     if(isGraphInit)
     {
-        printf("\n\t1. Creation d'un graphe\n\t2. Lecture d'un graphe depuis un fichier\n\t3. Insertion d'un sommet\n\t4. Insertion d'une arête\n\t5. Suppression d'un sommet\n\t6. Suppression d'une arête\n\t7. Afficher le graghe\n\t8. Sauvegarder le graphe\n\t9. Quitter\n");
+        printf("\n\t1. Création d'un graphe\n\t2. Lecture d'un graphe depuis un fichier\n\t3. Insertion d'un sommet\n\t4. Insertion d'une arête\n\t5. Suppression d'un sommet\n\t6. Suppression d'une arête\n\t7. Afficher le graghe\n\t8. Sauvegarder le graphe\n\t9. Quitter\n");
     }
     else
     {
-        printf("\n\t1. Creation d'un graphe\n\t2. Lecture d'un graphe depuis un fichier\n\t3. Quitter\n");
+        printf("\n\t1. Création d'un graphe\n\t2. Lecture d'un graphe depuis un fichier\n\t3. Quitter\n");
     }
 }
 
