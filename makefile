@@ -1,14 +1,48 @@
+# Répertoires
+INCLUDEDIR =./INCLUDE
+LIBDIR=./LIB
+OBJDIR=./OBJ
+SRCDIR=./SRC
+
+#
 CC=gcc
-CFLAGS=
-SRC=*.c
-OBJ=$(SRC: .c=.o)
-EXEC=TP2
+CFLAGS=-I$(INCLUDEDIR)
 
-$(EXEC): $(OBJ)
-	$(CC) -o $@ $(OBJ) $(CFLAGS)
+SL=ar rcs
 
-%.o: %.c %.h
-	$(CC) -o $@ $(CFLAGS) $<
+#
+LISTEOBJ=$(OBJDIR)/MaListe.o
+GRAPHEOBJ=$(OBJDIR)/Graphe.o
 
-CLEAN:
-	rm *.o, rm $(EXEC)
+# Cible proncipale
+all: libliste libgraphe
+
+# Règle de construction dee MaListe.a
+libliste: $(LISTEOBJ) $(LIBDIR)
+	$(SL) $(LIBDIR)/$@.a $<
+
+# Règle de construction de Graphe.a
+libgraphe: $(GRAPHEOBJ) $(LIBDIR)
+	$(SL) $(LIBDIR)/$@.a $<
+
+# Règle de construction de MaListe.o
+$(LISTEOBJ) : $(OBJDIR)/%.o : $(SRCDIR)/%.c $(INCLUDEDIR)/%.h $(OBJDIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# Règle de construction de Graphe.o
+$(GRAPHEOBJ) : $(OBJDIR)/%.o : $(SRCDIR)/%.c $(INCLUDEDIR)/%.h $(OBJDIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# Règle de construction des répertoires
+$(OBJDIR):
+	mkdir $(OBJDIR)
+
+$(LIBDIR):
+	mkdir $(LIBDIR)
+
+#
+clean:
+	rm $(OBJDIR)
+
+veryclean: clean
+	rm $(LIBDIR)
