@@ -175,7 +175,7 @@ int areteAppartientGraphe(graphe* g, int s1, int s2, int oriente)
 		// Retourne 1 s'il existe une arête de s1 à s2
 		return 1;
 	}
-	if(!g->estOriente || (g->estOriente && oriente)) {
+	if(!g->estOriente || (g->estOriente && !oriente)) {
 		res = appartientListe(&(g->listesAdjacences[s2]),s1);
 		if(res)
 		{
