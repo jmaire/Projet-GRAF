@@ -334,7 +334,7 @@ void sauvegardeGraphe(graphe* g, char* path)
 	int i;
 	for(i=0 ; i<g->nbSommets ; i++)
 	{
-		fprintf(f,"%d : ",i);
+		fprintf(f,"%d : ",i+1);
 		char * s = listeToString(&(g->listesAdjacences[i]),AFFICHER_SOMMET_FICTIF,0);
 		fprintf(f,"%s",s);
 		free(s);
