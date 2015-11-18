@@ -46,7 +46,7 @@ void insertionArete(graphe* g, int s1, int s2, int poids, int oriente)
 	// Vérification en cas de paramètres erronés
 	if(s1==s2 || s1>=g->nbSommets || s1<0 || s2>=g->nbSommets || s2<0 || poids<=0)
 	{
-		fprintf(stderr,"Impossible d'ajouter l'arête (%d) --%d-> (%d) :\n",s1,s2,poids);
+		fprintf(stderr,"Impossible d'ajouter l'arête (%d) --%d-> (%d) :\n",s1+DECALAGE_SOMMET,poids,s2+DECALAGE_SOMMET);
 		if(s1==s2)
 		{
 			fprintf(stderr,"\t-Un arête doit se faire entre deux sommets différents\n");
@@ -70,11 +70,11 @@ void insertionArete(graphe* g, int s1, int s2, int poids, int oriente)
 		switch(res)
 		{
 			case 1:
-				fprintf(stderr,"Une arête entre le sommet %d et %d est déjà présente\n",s1,s2);
+				fprintf(stderr,"Une arête entre le sommet %d et %d est déjà présente\n",s1+DECALAGE_SOMMET,s2+DECALAGE_SOMMET);
 				break;
 
 			case 2:
-				fprintf(stderr,"Une arête entre le sommet %d et %d est déjà présente\n",s2,s1);
+				fprintf(stderr,"Une arête entre le sommet %d et %d est déjà présente\n",s2+DECALAGE_SOMMET,s1+DECALAGE_SOMMET);
 				break;
 
 			default:
@@ -97,7 +97,7 @@ void supprimerSommet(graphe* g, int s)
 {
 	if(s>=g->nbSommets || s<0)
 	{
-		fprintf(stderr,"Impossible de supprimer le sommet %d\n",s);
+		fprintf(stderr,"Impossible de supprimer le sommet %d\n",s+DECALAGE_SOMMET);
 		fprintf(stderr,"\t-Le sommet choisi n'existe pas\n");
 		return;
 	}
@@ -138,7 +138,7 @@ void supprimerArete(graphe* g, int s1, int s2)
 	// Vérification en cas de paramètres erronés
 	if(s1>=g->nbSommets || s1<0 || s2>=g->nbSommets || s2<0)
 	{
-		fprintf(stderr,"Impossible de supprimer l'arête (%d) ---> (%d)\n",s1,s2);
+		fprintf(stderr,"Impossible de supprimer l'arête (%d) ---> (%d)\n",s1+DECALAGE_SOMMET,s2+DECALAGE_SOMMET);
 		fprintf(stderr,"\t-Les sommets choisis n'existent pas\n");
 		return;
 	}
@@ -241,7 +241,7 @@ graphe* lectureGraphe(char* path)
             return NULL;
         }
 
-        sommet_depart--;
+        sommet_depart -= DECALAGE_SOMMET;
 
         if(sommet_depart != sommet_actuel)  // verification si le sommet indiqué par le fichier correspond au successeur des précédents
         {
@@ -275,7 +275,7 @@ graphe* lectureGraphe(char* path)
                 return NULL;
             }
 
-            sommet_arrive--;
+            sommet_arrive -= DECALAGE_SOMMET;
 
             liste_adjacences[sommet_depart][sommet_arrive] = poids;
             if('n' == isOrient)
@@ -338,7 +338,7 @@ void sauvegardeGraphe(graphe* g, char* path)
 	int i;
 	for(i=0 ; i<g->nbSommets ; i++)
 	{
-		fprintf(f,"%d : ",i+1);
+		fprintf(f,"%d : ",i+DECALAGE_SOMMET);
 		char * s = listeToString(&(g->listesAdjacences[i]),AFFICHER_SOMMET_FICTIF,0);
 		fprintf(f,"%s",s);
 		free(s);

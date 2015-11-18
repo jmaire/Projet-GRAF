@@ -1,6 +1,8 @@
 #ifndef MA_LISTE_H
 #define MA_LISTE_H
 
+#define DECALAGE_SOMMET 1
+
 typedef struct s_liste
 {
 	int sommet, poids;

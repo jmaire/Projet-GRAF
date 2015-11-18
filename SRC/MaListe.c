@@ -150,7 +150,7 @@ char* listeToString(liste* l, int opt, int virgule)
 				sprintf(tmp,", ");
 				strcat(rep,tmp);
 			}
-			sprintf(tmp,"(%d/%d)",(*l)->sommet+1, (*l)->poids);
+			sprintf(tmp,"(%d/%d)",(*l)->sommet+DECALAGE_SOMMET, (*l)->poids);
 			strcat(rep,tmp);
 
 			virgule=1;
