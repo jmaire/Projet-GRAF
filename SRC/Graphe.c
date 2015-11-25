@@ -189,6 +189,32 @@ int areteAppartientGraphe(graphe* g, int s1, int s2, int oriente)
 	return 0;
 }
 
+int** rechercheFlotMaximal(graphe* g, int s, int t)
+{/*
+  //TODO vérifier les sommets
+
+  int f[g->nbSommets][g->nbSommets];
+  // Initialiser le flot à 0
+  int i, j;
+  for(i=0; i<g->nbSommets; i++)
+  {
+    for(j=0; j<g->nbSommets; j++)
+    {
+      f[i][j] = 0;
+    }
+  }
+
+  // copie du graphe g
+
+  //tant que il existe un chemin améliorant p de s à t
+  while(1)
+  {
+    //augmenter le flot f le long de p
+  }
+
+  return f;*/
+}
+
 graphe* lectureGraphe(char* path)
 {
 	graphe* resultat_parcing;
@@ -347,6 +373,12 @@ void sauvegardeGraphe(graphe* g, char* path)
 	{
 		fclose(f);
 	}
+}
+
+graphe* copierGraphe(graphe* g)
+{
+  sauvegardeGraphe(g,"tmp");
+  return lectureGraphe("tmp");
 }
 
 void* realloueMemoire(void* ptr, int taille)

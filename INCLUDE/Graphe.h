@@ -98,6 +98,16 @@ int areteAppartientGraphe(graphe* g, int s1, int s2, int oriente);
 
 
 /*
+ * Fonction qui recherche du flot maximal entre deux sommets du graphe
+ *
+ * @param		graphe*		g         Référence du graphe
+ * @param		int				s1        Numéro du sommet de départ
+ * @param		int				s2        Numéro du sommet d'arrivée
+ */
+int** rechercheFlotMaximal(graphe* g, int s, int t);
+
+
+/*
  * Fonction qui permet de lire un graphe à partir du fichier texte
  *
  * @param		char*			path			Chemin du fichier
@@ -117,12 +127,19 @@ void sauvegardeGraphe(graphe* g, char* path);
 
 
 /*
+ * Fonction qui copie un graphe
+ *
+ * @param		graphe*		g					Référence du graphe que l'on veut copier
+ */
+graphe* copierGraphe(graphe* g);
+
+
+/*
  * Fonction qui affiche un graphe dans la console
  *
  * @param		graphe*		g					Référence du graphe que l'on veut afficher
  */
 void affichageGraphe(graphe* g);
-
 
 /*
  * Fonction qui réalloue un pointeur avec un nouvelle taille
