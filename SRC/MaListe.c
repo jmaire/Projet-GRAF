@@ -6,6 +6,8 @@
 
 #define MY_SIZE 1024
 
+#define MIN(A,B) ((A)<(B) ? (A) : (B))
+
 void initListe(liste* l)
 {
 	(*l) = NULL;

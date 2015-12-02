@@ -190,29 +190,47 @@ int areteAppartientGraphe(graphe* g, int s1, int s2, int oriente)
 }
 
 int** rechercheFlotMaximal(graphe* g, int s, int t)
-{/*
+{
   //TODO vérifier les sommets
 
-  int f[g->nbSommets][g->nbSommets];
-  // Initialiser le flot à 0
   int i, j;
+
+  // Initialiser le flot à 0
+  int** f = (int**)calloc(g->nbSommets,sizeof(int*));
+  for(i=0; i<g->nbSommets; i++)
+  {
+    f[i] = (int*)calloc(g->nbSommets,sizeof(int));
+  }
+
+  // Copie du graphe g
+  graphe* gf = copieGraphe(g);
+
+  int cf[g->nbSommets][g->nbSommets];
   for(i=0; i<g->nbSommets; i++)
   {
     for(j=0; j<g->nbSommets; j++)
     {
-      f[i][j] = 0;
+      f[i][j] = -1;
     }
   }
 
-  // copie du graphe g
-
-  //tant que il existe un chemin améliorant p de s à t
+  //tant que il existe un chemin améliorant p de s à t dans le graphe résiduel gf
   while(1)
   {
     //augmenter le flot f le long de p
+        
+    for(i=0; i<g->nbSommets; i++)
+    {
+      //cf(p) = MIN(
+      for(j=0; j<g->nbSommets; j++)
+      {
+        f[i][j] = f[i][j];//+cf(p);
+        f[j][i] = -f[i][j];
+      }
+    }
   }
 
-  return f;*/
+  return f;
 }
 
 graphe* lectureGraphe(char* path)
