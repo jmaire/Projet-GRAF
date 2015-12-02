@@ -214,11 +214,14 @@ int** rechercheFlotMaximal(graphe* g, int s, int t)
     }
   }
 
-  //tant que il existe un chemin améliorant p de s à t dans le graphe résiduel gf
-  while(1)
+  int** ps = 
+
+  //tant que il existe un chemin améliorant p de s à t dans le graphe résiduel Gf
+  while(p!=NULL)
   {
+    int* p = 
+
     //augmenter le flot f le long de p
-        
     for(i=0; i<g->nbSommets; i++)
     {
       //cf(p) = MIN(
