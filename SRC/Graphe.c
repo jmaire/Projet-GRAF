@@ -349,6 +349,64 @@ void sauvegardeGraphe(graphe* g, char* path)
 	}
 }
 
+int parcoursProfondeurGraphe(graphe* g, int sommet, int* taille, int* listeSommet, int* sommetMarque, int sommetATrouve)
+{
+    listeSommet[*taille] = sommet;
+    (*taille)++;
+    sommetMarque[sommet] = 1;
+
+    if(sommetATrouve == sommet)
+    {
+        return 1;
+    }
+    liste l = g->listesAdjacences[sommet];
+    while(l != NULL)
+    {
+        if(sommetMarque[l->sommet] == 0)
+        {
+            if(parcoursProfondeurGraphe(g, l->sommet, taille, listeSommet, sommetMarque, sommetATrouve))
+            {
+                return 1;
+            }
+        }
+        l = l->suiv;
+    }
+    return 0;
+}
+
+int cheminExisteGraphe(graphe* g, int sommetDepart, int sommetArrive)
+{
+    if(sommetDepart >= g->nbSommets)
+    {
+        fprintf(stderr, "Le sommet %d n'appartient pas au graphe.\n", sommetDepart);
+        return 0;
+    }
+    if(sommetArrive >= g->nbSommets)
+    {
+        fprintf(stderr, "Le sommet %d n'appartient pas au graphe.\n", sommetArrive);
+        return 0;
+    }
+
+    int taille = 0;
+	int* listeSommet = malloc(sizeof(int)*g->nbSommets);
+	int* sommetMarque = calloc(sizeof(int), g->nbSommets);
+    return parcoursProfondeurGraphe(g, sommetDepart, &taille, listeSommet, sommetMarque, sommetArrive);
+}
+
+int* getParcoursDepuisSommet(graphe* g, int sommetDepart, int* tailleParcours)
+{
+    *tailleParcours = 0;
+    if(sommetDepart >= g->nbSommets)
+    {
+        fprintf(stderr, "Le sommet %d n'appartient pas au graphe.\n", sommetDepart);
+        return NULL;
+    }
+	int* listeSommet = malloc(sizeof(int)*g->nbSommets);
+	int* sommetMarque = calloc(sizeof(int), g->nbSommets);
+    parcoursProfondeurGraphe(g, sommetDepart, tailleParcours, listeSommet, sommetMarque, -1);
+    return listeSommet;
+}
+
 void* realloueMemoire(void* ptr, int taille)
 {
 	void* temp = realloc(ptr, taille);
