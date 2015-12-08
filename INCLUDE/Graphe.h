@@ -140,6 +140,51 @@ graphe* copierGraphe(graphe* g);
  * @param		graphe*		g					Référence du graphe que l'on veut afficher
  */
 void affichageGraphe(graphe* g);
+<<<<<<< HEAD
+=======
+
+
+/*
+ * Fonction qui éffectue un parcours en profondeur d'un graphe,
+ * le parcours s'arrête soit lorsque tous les sommets on été parcouru
+ * soit lorque le sommetATrouve est rencontré
+ *
+ * @param		graphe*			g   			graphe sur lequel éffectuer le parcours
+ * @param		int 			sommet			sommet de départ du parcours
+ * @param		int*			taille			taille de la liste des sommets rencontrés
+ * @param		int*			listeSommet		liste des sommets rencontrés
+ * @param		int*			sommetMarque	tableau référençant les sommets trouvés
+ * @param		int 			sommetATrouve	sommet à trouver durant le parcours
+ *
+ * Retourne 1 si sommetATrouve a été trouvé durant le parcours, 0 sinon
+ */
+int parcoursProfondeurGraphe(graphe* g, int sommet, int* taille, int* listeSommet, int* sommetMarque, int sommetATrouve);
+
+
+/*
+ * Fonction qui permet de déterminer si un chemin existe depuis sommetDepart vers sommetArrive
+ *
+ * @param		graphe*			g   			graphe à tester
+ * @param		int 			sommetDepart	sommet de départ
+ * @param		int 			sommetArrive	sommet d'arrivée
+ *
+ * Retourne 1 s'il existe un chemin de sommetDepart à sommetArrive, 0 sinon
+ */
+int cheminExisteGraphe(graphe* g, int sommetDepart, int sommetArrive);
+
+
+/*
+ * Fonction qui permet retourner un parcours en profondeur d'un graphe depuis un sommet donné
+ *
+ * @param		graphe*			g   			graphe à parcourir
+ * @param		int 			sommetDepart	sommet de départ du parcours
+ * @param		int* 			tailleParcours	taille du tableau retourné
+ *
+ * Retourne la liste de sommets correspondant au parcours
+ */
+int* getParcoursDepuisSommet(graphe* g, int sommetDepart, int* tailleParcours);
+
+>>>>>>> e53901c2b47f3fd5cca47dddc76af9a7398e8caf
 
 /*
  * Fonction qui réalloue un pointeur avec un nouvelle taille
