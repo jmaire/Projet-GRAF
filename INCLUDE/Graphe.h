@@ -127,6 +127,20 @@ void sauvegardeGraphe(graphe* g, char* path);
 
 
 /*
+ * Fonction qui trouve un chemin de s vers t
+ *
+ * @param		int**		rGraph				graphe résiduel
+ * @param		int			V					taille de la matrice du graphe
+ * @param		int			s					sommet de départ
+ * @param		int			t					sommet d'arrivé
+ * @param		int[]		parent				chemin trouvé
+ *
+ * Retourne 1 si un chemin existe de s vers t, 0 sinon
+ */
+int existeChemin(int** rGraph, int V, int s, int t, int* cf);
+
+
+/*
  * Fonction qui copie un graphe
  *
  * @param		graphe*		g					Référence du graphe que l'on veut copier
@@ -140,8 +154,6 @@ graphe* copierGraphe(graphe* g);
  * @param		graphe*		g					Référence du graphe que l'on veut afficher
  */
 void affichageGraphe(graphe* g);
-<<<<<<< HEAD
-=======
 
 
 /*
@@ -184,7 +196,6 @@ int cheminExisteGraphe(graphe* g, int sommetDepart, int sommetArrive);
  */
 int* getParcoursDepuisSommet(graphe* g, int sommetDepart, int* tailleParcours);
 
->>>>>>> e53901c2b47f3fd5cca47dddc76af9a7398e8caf
 
 /*
  * Fonction qui réalloue un pointeur avec un nouvelle taille
