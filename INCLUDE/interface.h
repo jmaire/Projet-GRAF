@@ -15,12 +15,12 @@
 #define MENU_RECHERCHER_FLOT_MAX 9
 
 /*
- * Fonction de lancement du menu, affichage du menu et gestion des entrées utilisateur
+ * Fonction de lancement du menu, affichage du menu et gestion des entrÃ©es utilisateur
  */
 void menuDeSelection(void);
 
 /*
- * Fonction d'affichage du menu, affiche uniquement les fonctions de création et quitter si le graphe courant est NULL
+ * Fonction d'affichage du menu, affiche uniquement les fonctions de crÃ©ation et quitter si le graphe courant est NULL
  * affiche toutes les options sinon
  *
  * @param 	int				isGraphInit						0 si le graphe courant est NULL, 1 sinon
@@ -28,49 +28,49 @@ void menuDeSelection(void);
 void afficherMenu(int isGraphInit);
 
 /*
- * Fonction d'appel des fonctionnalités sur le graphe
+ * Fonction d'appel des fonctionnalitÃ©s sur le graphe
  *
- * @param 	int				num_action						entier correspondant à l'action souhaitée
+ * @param 	int				num_action						entier correspondant Ã  l'action souhaitÃ©e
  * @param 	graphe*			g			        			graphe sur lequel effectuer l'action
  *
- * Retourne le graphe modifié par l'action demandée
+ * Retourne le graphe modifiÃ© par l'action demandÃ©e
  */
 graphe* executerAction(int num_action, graphe* g);
 
 /*
- * Fonction d'appel des fonctionnalités de création d'un graphe
+ * Fonction d'appel des fonctionnalitÃ©s de crÃ©ation d'un graphe
  *
- * @param 	int				num_action						entier correspondant à l'action souhaitée
+ * @param 	int				num_action						entier correspondant Ã  l'action souhaitÃ©e
  *
- * Retourne le graphe créé ou NULL si une erreur se produit lors de la création
+ * Retourne le graphe crÃ©Ã© ou NULL si une erreur se produit lors de la crÃ©ation
  */
 graphe* executerActionCreation(int num_action);
 
 /*
- * Fonction de création de graphe à partir d'un fichier
+ * Fonction de crÃ©ation de graphe Ã  partir d'un fichier
  *
- * Retourne le graphe créé par la lecture ou NULL si une erreur se produit
+ * Retourne le graphe crÃ©Ã© par la lecture ou NULL si une erreur se produit
  */
 graphe* lectureFichier(void);
 
 /*
- * Fonction de création de graphe à partir de données utilisateur
+ * Fonction de crÃ©ation de graphe Ã  partir de donnÃ©es utilisateur
  *
- * Retourne le graphe correspondant aux caractéristiques entrées par l'utilisateur
+ * Retourne le graphe correspondant aux caractÃ©ristiques entrÃ©es par l'utilisateur
  */
 graphe* actionCreation(void);
 
 /*
- * Fonction d'écriture du graphe courant dans un fichier
+ * Fonction d'Ã©criture du graphe courant dans un fichier
  *
- * @param 	graphe*			g			        			graphe à sauvegarder
+ * @param 	graphe*			g			        			graphe Ã  sauvegarder
  */
 void actionSauvegarde(graphe* g);
 
 /*
- * Fonction d'ajout d'une arête au graphe courant
+ * Fonction d'ajout d'une arÃªte au graphe courant
  *
- * @param 	graphe*			g			        			graphe auquel ajouter une arête
+ * @param 	graphe*			g			        			graphe auquel ajouter une arÃªte
  */
 void actionInsertionArete(graphe* g);
 
@@ -82,10 +82,17 @@ void actionInsertionArete(graphe* g);
 void actionSuppressionSommet(graphe* g);
 
 /*
- * Fonction de suppression d'une arête au graphe courant
+ * Fonction de suppression d'une arÃªte au graphe courant
  *
- * @param 	graphe*			g			        			graphe auquel supprimer une arête
+ * @param 	graphe*			g			        			graphe auquel supprimer une arÃªte
  */
 void actionSuppressionArete(graphe* g);
+
+/*
+ * Fonction d'affichage du flot maximum d'un graphe
+ *
+ * @param 	graphe*			g			        			graphe auquel trouver le flot
+ */
+void actionRechercheFlot(graphe* g);
 
 #endif // INTERFACE_FUNCTION
