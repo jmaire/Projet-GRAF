@@ -298,3 +298,30 @@ void actionSuppressionArete(graphe* g)
 
 	supprimerArete(g, s1-DECALAGE_SOMMET, s2-DECALAGE_SOMMET);
 }
+
+void actionRechercheFlot(graphe* g)
+{
+	int s1, s2, res = 0;
+
+	while(!res)
+	{
+		printf("Entrez le numero du sommet de départ.\n");
+
+		res = scanf("%d", &s1);
+		scanf("%*[^\n]s");
+		getchar();
+	}
+
+	res = 0;
+
+    while(!res)
+	{
+		printf("Entrez le numero du sommet d'arrivé.\n");
+
+		res = scanf("%d", &s2);
+		scanf("%*[^\n]s");
+		getchar();
+	}
+
+	printf("\n%d\n",rechercheFlotMaximal(g, s1-DECALAGE_SOMMET, s2-DECALAGE_SOMMET));
+}
