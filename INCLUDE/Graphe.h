@@ -104,7 +104,7 @@ int areteAppartientGraphe(graphe* g, int s1, int s2, int oriente);
  * @param		int				s1        Numéro du sommet de départ
  * @param		int				s2        Numéro du sommet d'arrivée
  */
-int** rechercheFlotMaximal(graphe* g, int s, int t);
+int rechercheFlotMaximal(graphe* g, int s, int t);
 
 
 /*
@@ -214,4 +214,3 @@ int* getParcoursDepuisSommet(graphe* g, int sommetDepart, int* tailleParcours);
 void* realloueMemoire(void* ptr, int taille);
 
 #endif
->>>>>>> 39fc1b31861196d417fd8ae6382b626d569870ca

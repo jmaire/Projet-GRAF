@@ -211,7 +211,7 @@ int rechercheFlotMaximal(graphe* g, int s, int t)
   int flot_max = 0;
 
   // Copie du graphe g vers une matrice d'ajacences
-  int ** Gf = toMatriceAdjacences(g);
+  int** Gf = toMatriceAdjacences(g);
 
   //tant que il existe un chemin améliorant p de s à t dans le graphe résiduel Gf
   while(existeChemin(Gf,g->nbSommets,s,t,cf))
@@ -221,15 +221,15 @@ int rechercheFlotMaximal(graphe* g, int s, int t)
     int i;
     for(i=t; i!=s; i=cf[i])
     {
-      j = parent[i];
+      j = cf[i];
       flot_chemin = min(flot_chemin, Gf[j][i]);
     }
 
-    for(i=t; i!=s; i=parent[i])
+    for(i=t; i!=s; i=cf[i])
     {
-      j = parent[i];
-      rGraph[j][i] -= flot_chemin;
-      rGraph[i][j] += flot_chemin;
+      j = cf[i];
+      Gf[j][i] -= flot_chemin;
+      Gf[i][j] += flot_chemin;
     }
  
     flot_max += flot_chemin;
