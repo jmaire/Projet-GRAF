@@ -116,7 +116,6 @@ graphe* executerAction(int num_action, graphe* g)
         break;
     default:
         fprintf(stderr, "Action inconnue\n");
-        return NULL;
         break;
     }
 	return g;
