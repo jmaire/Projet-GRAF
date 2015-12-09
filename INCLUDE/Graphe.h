@@ -104,7 +104,7 @@ int areteAppartientGraphe(graphe* g, int s1, int s2, int oriente);
  * @param		int				s1        Numéro du sommet de départ
  * @param		int				s2        Numéro du sommet d'arrivée
  */
-int rechercheFlotMaximal(graphe* g, int s, int t);
+int** rechercheFlotMaximal(graphe* g, int s, int t);
 
 
 /*
@@ -124,6 +124,20 @@ graphe* lectureGraphe(char* path);
  * @param		char*			path			Chemin du fichier
  */
 void sauvegardeGraphe(graphe* g, char* path);
+
+
+/*
+ * Fonction qui trouve un chemin de s vers t
+ *
+ * @param		int**		rGraph				graphe résiduel
+ * @param		int			V					taille de la matrice du graphe
+ * @param		int			s					sommet de départ
+ * @param		int			t					sommet d'arrivé
+ * @param		int[]		parent				chemin trouvé
+ *
+ * Retourne 1 si un chemin existe de s vers t, 0 sinon
+ */
+int existeChemin(int** rGraph, int V, int s, int t, int* cf);
 
 
 /*
@@ -160,6 +174,14 @@ int parcoursProfondeurGraphe(graphe* g, int sommet, int* taille, int* listeSomme
 
 
 /*
+ * Fonction 
+ *
+ * @param		graphe*			g   			graphe
+ */
+int** toMatriceAdjacences(graphe* g);
+
+
+/*
  * Fonction qui permet de déterminer si un chemin existe depuis sommetDepart vers sommetArrive
  *
  * @param		graphe*			g   			graphe à tester
@@ -184,13 +206,6 @@ int* getParcoursDepuisSommet(graphe* g, int sommetDepart, int* tailleParcours);
 
 
 /*
- * Fonction 
- *
- * @param		graphe*			g   			graphe
- */
-int** toMatriceAdjacences(graphe* g);
-
-/*
  * Fonction qui réalloue un pointeur avec un nouvelle taille
  *
  * @param		void*		ptr					Référence
@@ -199,3 +214,4 @@ int** toMatriceAdjacences(graphe* g);
 void* realloueMemoire(void* ptr, int taille);
 
 #endif
+>>>>>>> 39fc1b31861196d417fd8ae6382b626d569870ca
