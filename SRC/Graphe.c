@@ -222,7 +222,7 @@ int rechercheFlotMaximal(graphe* g, int s, int t)
     for(i=t; i!=s; i=cf[i])
     {
       j = cf[i];
-      flot_chemin = min(flot_chemin, Gf[j][i]);
+      flot_chemin = MIN(flot_chemin, Gf[j][i]);
     }
 
     for(i=t; i!=s; i=cf[i])

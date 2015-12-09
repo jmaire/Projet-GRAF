@@ -6,8 +6,6 @@
 
 #define MY_SIZE 1024
 
-#define MIN(A,B) ((A)<(B) ? (A) : (B))
-
 void initListe(liste* l)
 {
 	(*l) = NULL;
@@ -181,6 +179,6 @@ void remplirMatriceAdjacences(liste* l, int* ma)
   if((*l)!=NULL)
 	{
 	  ma[(*l)->sommet] = (*l)->poids;
-    remplirMatriceAdjacences((*l)->suiv,ma);
+    remplirMatriceAdjacences(&((*l)->suiv),ma);
   }
 }

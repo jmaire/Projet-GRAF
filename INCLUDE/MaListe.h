@@ -4,6 +4,7 @@
 #include <limits.h>
 
 #define DECALAGE_SOMMET 1
+#define MIN(A,B) ((A)<(B) ? (A) : (B))
 
 typedef struct s_liste
 {

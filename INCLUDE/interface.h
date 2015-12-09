@@ -3,6 +3,17 @@
 
 #include "Graphe.h"
 
+#define MENU_QUITTER 0
+#define MENU_CREATION_GRAPHE 1
+#define MENU_LECTURE_GRAPHE 2
+#define MENU_INSERTION_SOMMET 3
+#define MENU_INSERTION_ARETE 4
+#define MENU_SUPPRESSION_SOMMET 5
+#define MENU_SUPPRESSION_ARETE 6
+#define MENU_AFFICHER_GRAPHE 7
+#define MENU_SAUVEGARDER_GRAPHE 8
+#define MENU_RECHERCHER_FLOT_MAX 9
+
 /*
  * Fonction de lancement du menu, affichage du menu et gestion des entrées utilisateur
  */

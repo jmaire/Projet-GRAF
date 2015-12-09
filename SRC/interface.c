@@ -9,29 +9,29 @@ void menuDeSelection(void)
 	int res;
 
 	do  // lors du lancement aucun graphe n'est initialisé, seule les actions de creation et quitter sont disponibles
-    {
+  {
 		afficherMenu(0);
 		res = scanf("%d", &selection);
 		scanf("%*[^\n]s");
 		getchar();
 		printf("\n");
 
-		if(res < 1)
-        {
-            fprintf(stderr, "Action inconnue\n");
-            continue;
-        }
+		if(res < 0)
+    {
+      fprintf(stderr, "Action inconnue\n");
+      continue;
+    }
 
 		grapheCourant = executerActionCreation(selection);
 
-    } while ((!grapheCourant) && (selection != 3)); // tant que le graphe est NULL et qu'il n'y a pas eu de demande pour quitter on continue
+    } while ((!grapheCourant) && (selection != MENU_QUITTER)); // tant que le graphe est NULL et qu'il n'y a pas eu de demande pour quitter on continue
 
     if(!grapheCourant)
     {
         return;
     }
 
-	while (selection != 9)
+  while (selection != MENU_QUITTER)
 	{
 		afficherMenu(1);
 		res = scanf("%d", &selection);
@@ -39,7 +39,7 @@ void menuDeSelection(void)
 		getchar();
 		printf("\n");
 
-		if(res < 1)
+		if(res < 0)
         {
             fprintf(stderr, "Action inconnue\n");
             continue;
@@ -55,17 +55,30 @@ void afficherMenu(int isGraphInit)
 {
     if(isGraphInit)
     {
-        printf("\n\t1. Création d'un graphe\n\t2. Lecture d'un graphe depuis un fichier\n\t3. Insertion d'un sommet\n\t4. Insertion d'une arête\n\t5. Suppression d'un sommet\n\t6. Suppression d'une arête\n\t7. Afficher le graghe\n\t8. Sauvegarder le graphe\n\t9. Quitter\n");
+        printf("\n\t%d. Création d'un graphe",MENU_CREATION_GRAPHE);
+        printf("\n\t%d. Lecture d'un graphe depuis un fichier",MENU_LECTURE_GRAPHE);
+        printf("\n\t%d. Insertion d'un sommet",MENU_INSERTION_SOMMET);
+        printf("\n\t%d. Insertion d'une arête",MENU_INSERTION_ARETE);
+        printf("\n\t%d. Suppression d'un sommet",MENU_SUPPRESSION_SOMMET);
+        printf("\n\t%d. Suppression d'une arête",MENU_SUPPRESSION_ARETE);
+        printf("\n\t%d. Afficher le graghe",MENU_AFFICHER_GRAPHE);
+        printf("\n\t%d. Sauvegarder le graghe",MENU_SAUVEGARDER_GRAPHE);
+        printf("\n\t%d. Rechercher le flot maximum",MENU_RECHERCHER_FLOT_MAX);
+        printf("\n\t%d. Quitter",MENU_QUITTER);
+        printf("\n");
     }
     else
     {
-        printf("\n\t1. Création d'un graphe\n\t2. Lecture d'un graphe depuis un fichier\n\t3. Quitter\n");
+        printf("\n\t%d. Création d'un graphe",MENU_CREATION_GRAPHE);
+        printf("\n\t%d. Lecture d'un graphe depuis un fichier",MENU_LECTURE_GRAPHE);
+        printf("\n\t%d. Quitter",MENU_QUITTER);
+        printf("\n");
     }
 }
 
 graphe* executerAction(int num_action, graphe* g)
 {
-	if((num_action == 1) || (num_action == 2))
+	if((num_action == MENU_CREATION_GRAPHE) || (num_action == MENU_LECTURE_GRAPHE))
 	{
 		graphe* res = executerActionCreation(num_action);
 
@@ -81,25 +94,25 @@ graphe* executerAction(int num_action, graphe* g)
 
     switch (num_action)
     {
-    case 3: // insertion d'un sommet
+    case MENU_INSERTION_SOMMET: // insertion d'un sommet
 		insertionSommet(g);
         break;
-    case 4: // insertion d'une arête
+    case MENU_INSERTION_ARETE: // insertion d'une arête
     	actionInsertionArete(g);
         break;
-    case 5: // suppression d'un sommet
+    case MENU_SUPPRESSION_SOMMET: // suppression d'un sommet
     	actionSuppressionSommet(g);
         break;
-    case 6: // suppression d'une arête
+    case MENU_SUPPRESSION_ARETE: // suppression d'une arête
         actionSuppressionArete(g);
         break;
-    case 7: // afficher le graghe
+    case MENU_AFFICHER_GRAPHE: // afficher le graghe
     	affichageGraphe(g);
         break;
-    case 8: // sauvegarder le graphe
+    case MENU_SAUVEGARDER_GRAPHE: // sauvegarder le graphe
     	actionSauvegarde(g);
         break;
-    case 9: // quitter
+    case MENU_QUITTER: // quitter
         break;
     default:
         fprintf(stderr, "Action inconnue\n");
@@ -113,13 +126,13 @@ graphe* executerActionCreation(int num_action)
 {
     switch (num_action)
     {
-    case 1: // creation d'un graphe
+    case MENU_CREATION_GRAPHE: // creation d'un graphe
         return actionCreation();
         break;
-    case 2: // creation d'un graphe depuis un fichier
+    case MENU_LECTURE_GRAPHE: // creation d'un graphe depuis un fichier
         return lectureFichier();
         break;
-    case 3: // quitter
+    case MENU_QUITTER: // quitter
         return NULL;
         break;
     default:
