@@ -454,6 +454,36 @@ int* getParcoursDepuisSommet(graphe* g, int sommetDepart, int* tailleParcours)
     return listeSommet;
 }
 
+int existeChemin(int** rGraph, int V, int s, int t, int* cf)
+{
+    int visited[V];
+    memset(visited, 0, sizeof(visited));
+    
+    int taille = 512;
+    int queue[taille];
+    taille = 0;
+    queue[taille++] = s;
+    visited[s] = 1;
+    cf[s] = -1;
+ 
+    while (taille > 0)
+    {
+        int u = queue[--taille];
+		int v;
+		
+        for (v=0; v<V; v++)
+        {
+            if (!visited[v] && rGraph[u][v] > 0)
+            {
+                queue[taille++] = v;
+                cf[v] = u;
+                visited[v] = 1;
+            }
+        }
+    }
+
+    return (visited[t]);
+}
 graphe* copierGraphe(graphe* g)
 {
   sauvegardeGraphe(g,"tmp");
