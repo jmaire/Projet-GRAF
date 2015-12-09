@@ -112,6 +112,9 @@ graphe* executerAction(int num_action, graphe* g)
     case MENU_SAUVEGARDER_GRAPHE: // sauvegarder le graphe
     	actionSauvegarde(g);
         break;
+    case MENU_RECHERCHER_FLOT_MAX: // rechercher flot max
+    	actionRechercheFlot(g);
+        break;
     case MENU_QUITTER: // quitter
         break;
     default:

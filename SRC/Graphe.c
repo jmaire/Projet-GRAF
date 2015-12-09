@@ -231,7 +231,7 @@ int rechercheFlotMaximal(graphe* g, int s, int t)
       Gf[j][i] -= flot_chemin;
       Gf[i][j] += flot_chemin;
     }
- 
+
     flot_max += flot_chemin;
   }
 
@@ -460,19 +460,19 @@ int existeChemin(int** rGraph, int V, int s, int t, int* cf)
 {
     int visited[V];
     memset(visited, 0, sizeof(visited));
-    
+
     int taille = 512;
     int queue[taille];
     taille = 0;
     queue[taille++] = s;
     visited[s] = 1;
     cf[s] = -1;
- 
+
     while (taille > 0)
     {
         int u = queue[--taille];
 		int v;
-		
+
         for (v=0; v<V; v++)
         {
             if (!visited[v] && rGraph[u][v] > 0)
@@ -491,10 +491,17 @@ int** toMatriceAdjacences(graphe* g)
 {
   int** ma = (int**)calloc(g->nbSommets,sizeof(int*));
   int i;
+
   for(i=0; i<g->nbSommets; i++)
   {
     ma[i] = (int*)calloc(g->nbSommets,sizeof(int));
-    remplirMatriceAdjacences(g->listesAdjacences,ma[i]);
+
+    liste l = g->listesAdjacences[i];
+    while(l != NULL)
+    {
+      ma[i][l->sommet] = l->poids;
+      l = l->suiv;
+    }
   }
 
   return ma;
