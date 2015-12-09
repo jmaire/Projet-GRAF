@@ -77,4 +77,11 @@ void viderListe(liste* l);
  */
 char* listeToString(liste* l, int opt, int virgule);
 
+
+//int* toMatriceAdjacences(liste* l, int taille);
+
+
+void remplirMatriceAdjacences(liste* l, int* ma);
+
+
 #endif

@@ -189,51 +189,53 @@ int areteAppartientGraphe(graphe* g, int s1, int s2, int oriente)
 	return 0;
 }
 
-int** rechercheFlotMaximal(graphe* g, int s, int t)
+int rechercheFlotMaximal(graphe* g, int s, int t)
 {
   //TODO vérifier les sommets
 
   int i, j;
 
   // Initialiser le flot à 0
-  int** f = (int**)calloc(g->nbSommets,sizeof(int*));
-  for(i=0; i<g->nbSommets; i++)
-  {
-    f[i] = (int*)calloc(g->nbSommets,sizeof(int));
-  }
-
-  // Copie du graphe g
-  graphe* gf = copieGraphe(g);
-
-  int cf[g->nbSommets][g->nbSommets];
+  int f[g->nbSommets][g->nbSommets];
   for(i=0; i<g->nbSommets; i++)
   {
     for(j=0; j<g->nbSommets; j++)
     {
-      f[i][j] = -1;
+      f[i][j] = 0;
     }
   }
 
-  int** ps = 
+  int cf[g->nbSommets];
+
+  // Initialisation à zéro du flot maximal
+  int flot_max = 0;
+
+  // Copie du graphe g vers une matrice d'ajacences
+  int ** Gf = toMatriceAdjacences(g);
 
   //tant que il existe un chemin améliorant p de s à t dans le graphe résiduel Gf
-  while(p!=NULL)
+  while(existeChemin(Gf,g->nbSommets,s,t,cf))
   {
-    int* p = 
+    int flot_chemin = INT_MAX;
 
-    //augmenter le flot f le long de p
-    for(i=0; i<g->nbSommets; i++)
+    int i;
+    for(i=t; i!=s; i=cf[i])
     {
-      //cf(p) = MIN(
-      for(j=0; j<g->nbSommets; j++)
-      {
-        f[i][j] = f[i][j];//+cf(p);
-        f[j][i] = -f[i][j];
-      }
+      j = parent[i];
+      flot_chemin = min(flot_chemin, Gf[j][i]);
     }
+
+    for(i=t; i!=s; i=parent[i])
+    {
+      j = parent[i];
+      rGraph[j][i] -= flot_chemin;
+      rGraph[i][j] += flot_chemin;
+    }
+ 
+    flot_max += flot_chemin;
   }
 
-  return f;
+  return flot_max;
 }
 
 graphe* lectureGraphe(char* path)
@@ -458,6 +460,19 @@ graphe* copierGraphe(graphe* g)
 {
   sauvegardeGraphe(g,"tmp");
   return lectureGraphe("tmp");
+}
+
+int** toMatriceAdjacences(graphe* g)
+{
+  int** ma = (int**)calloc(g->nbSommets,sizeof(int*));
+  int i;
+  for(i=0; i<g->nbSommets; i++)
+  {
+    ma[i] = (int*)calloc(g->nbSommets,sizeof(int));
+    remplirMatriceAdjacences(g->listesAdjacences,ma[i]);
+  }
+
+  return ma;
 }
 
 void* realloueMemoire(void* ptr, int taille)

@@ -104,7 +104,7 @@ int areteAppartientGraphe(graphe* g, int s1, int s2, int oriente);
  * @param		int				s1        Numéro du sommet de départ
  * @param		int				s2        Numéro du sommet d'arrivée
  */
-int** rechercheFlotMaximal(graphe* g, int s, int t);
+int rechercheFlotMaximal(graphe* g, int s, int t);
 
 
 /*
@@ -140,8 +140,6 @@ graphe* copierGraphe(graphe* g);
  * @param		graphe*		g					Référence du graphe que l'on veut afficher
  */
 void affichageGraphe(graphe* g);
-<<<<<<< HEAD
-=======
 
 
 /*
@@ -184,7 +182,13 @@ int cheminExisteGraphe(graphe* g, int sommetDepart, int sommetArrive);
  */
 int* getParcoursDepuisSommet(graphe* g, int sommetDepart, int* tailleParcours);
 
->>>>>>> e53901c2b47f3fd5cca47dddc76af9a7398e8caf
+
+/*
+ * Fonction 
+ *
+ * @param		graphe*			g   			graphe
+ */
+int** toMatriceAdjacences(graphe* g);
 
 /*
  * Fonction qui réalloue un pointeur avec un nouvelle taille

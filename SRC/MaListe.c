@@ -168,3 +168,19 @@ char* listeToString(liste* l, int opt, int virgule)
 
 	return rep;
 }
+/*
+int* toMatriceAdjacences(liste* l, int taille)
+{
+  int* ma = (int*)calloc(taille,sizeof(int));
+  remplirMatriceAdjacences(l,ma);
+  return ma;
+}
+*/
+void remplirMatriceAdjacences(liste* l, int* ma)
+{
+  if((*l)!=NULL)
+	{
+	  ma[(*l)->sommet] = (*l)->poids;
+    remplirMatriceAdjacences((*l)->suiv,ma);
+  }
+}
