@@ -337,5 +337,5 @@ void actionRechercheFlot(graphe* g)
   elapsed_time += (t_end.tv_usec - t_start.tv_usec) / 1000.0;
 
 	printf("\nFlot maximal : %d\n",flot_max);
-	printf("\nTemps d'exécution : %fms\n",elapsed_time);
+	printf("Temps d'exécution : %fms\n",elapsed_time);
 }

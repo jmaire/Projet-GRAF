@@ -458,33 +458,33 @@ int* getParcoursDepuisSommet(graphe* g, int sommetDepart, int* tailleParcours)
 
 int existeChemin(int** rGraph, int V, int s, int t, int* cf)
 {
-    int visited[V];
-    memset(visited, 0, sizeof(visited));
+    int est_visite[V];
+    memset(est_visite, 0, sizeof(est_visite));
 
     int taille = 512;
-    int queue[taille];
+    int file[taille];
     taille = 0;
-    queue[taille++] = s;
-    visited[s] = 1;
+    file[taille++] = s;
+    est_visite[s] = 1;
     cf[s] = -1;
 
     while (taille > 0)
     {
-        int u = queue[--taille];
-		int v;
+        int u = file[--taille];
+		    int v;
 
         for (v=0; v<V; v++)
         {
-            if (!visited[v] && rGraph[u][v] > 0)
+            if (!est_visite[v] && rGraph[u][v] > 0)
             {
-                queue[taille++] = v;
+                file[taille++] = v;
                 cf[v] = u;
-                visited[v] = 1;
+                est_visite[v] = 1;
             }
         }
     }
 
-    return (visited[t]);
+    return (est_visite[t]);
 }
 
 int** toMatriceAdjacences(graphe* g)
@@ -495,13 +495,7 @@ int** toMatriceAdjacences(graphe* g)
   for(i=0; i<g->nbSommets; i++)
   {
     ma[i] = (int*)calloc(g->nbSommets,sizeof(int));
-
-    liste l = g->listesAdjacences[i];
-    while(l != NULL)
-    {
-      ma[i][l->sommet] = l->poids;
-      l = l->suiv;
-    }
+    remplirMatriceAdjacences(&(g->listesAdjacences[i]),ma[i]);
   }
 
   return ma;
