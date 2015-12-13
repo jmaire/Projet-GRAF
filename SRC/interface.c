@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <sys/time.h>
 
 #include "../INCLUDE/interface.h"
 
@@ -316,7 +317,7 @@ void actionRechercheFlot(graphe* g)
 
 	res = 0;
 
-    while(!res)
+  while(!res)
 	{
 		printf("Entrez le numero du sommet d'arrivé.\n");
 
@@ -324,6 +325,17 @@ void actionRechercheFlot(graphe* g)
 		scanf("%*[^\n]s");
 		getchar();
 	}
+  
+  struct timeval t_start, t_end;
+  double elapsed_time;
 
-	printf("\n%d\n",rechercheFlotMaximal(g, s1-DECALAGE_SOMMET, s2-DECALAGE_SOMMET));
+  gettimeofday(&t_start, NULL);
+  int flot_max = rechercheFlotMaximal(g, s1-DECALAGE_SOMMET, s2-DECALAGE_SOMMET);
+  gettimeofday(&t_end, NULL);
+
+  elapsed_time = (t_end.tv_sec - t_start.tv_sec) * 1000.0;
+  elapsed_time += (t_end.tv_usec - t_start.tv_usec) / 1000.0;
+
+	printf("\nFlot maximal : %d\n",flot_max);
+	printf("\nTemps d'exécution : %fms\n",elapsed_time);
 }
