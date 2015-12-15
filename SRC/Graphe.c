@@ -501,12 +501,6 @@ int** toMatriceAdjacences(graphe* g)
   return ma;
 }
 
-graphe* copierGraphe(graphe* g)
-{
-  sauvegardeGraphe(g,"tmp");
-  return lectureGraphe("tmp");
-}
-
 void* realloueMemoire(void* ptr, int taille)
 {
 	void* temp = realloc(ptr, taille);

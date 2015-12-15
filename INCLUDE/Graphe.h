@@ -141,14 +141,6 @@ int existeChemin(int** rGraph, int V, int s, int t, int* cf);
 
 
 /*
- * Fonction qui copie un graphe
- *
- * @param		graphe*		g					Référence du graphe que l'on veut copier
- */
-graphe* copierGraphe(graphe* g);
-
-
-/*
  * Fonction qui affiche un graphe dans la console
  *
  * @param		graphe*		g					Référence du graphe que l'on veut afficher

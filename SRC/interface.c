@@ -333,9 +333,9 @@ void actionRechercheFlot(graphe* g)
   int flot_max = rechercheFlotMaximal(g, s1-DECALAGE_SOMMET, s2-DECALAGE_SOMMET);
   gettimeofday(&t_end, NULL);
 
-  elapsed_time = (t_end.tv_sec - t_start.tv_sec) * 1000.0;
-  elapsed_time += (t_end.tv_usec - t_start.tv_usec) / 1000.0;
+  elapsed_time = (t_end.tv_sec - t_start.tv_sec);
+  elapsed_time += (t_end.tv_usec - t_start.tv_usec) / 1000000.0;
 
 	printf("\nFlot maximal : %d\n",flot_max);
-	printf("Temps d'exécution : %fms\n",elapsed_time);
+	printf("Temps d'exécution : %fs\n",elapsed_time);
 }
